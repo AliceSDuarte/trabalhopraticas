@@ -2683,11 +2683,11 @@ window.FlexDashboardComponents.push({
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#install.packages(&quot;installr&quot;)</span>
-<span class="co">#install.packages(&quot;knitr&quot;)</span>
 <span class="kw">library</span>(<span class="st">&quot;installr&quot;</span>)
-<span class="kw">library</span>(<span class="st">&quot;xtable&quot;</span>)
-<span class="kw">library</span>(<span class="st">&quot;knitr&quot;</span>)
 <span class="co"># updateR()</span></code></pre></div>
 <hr />
 </div>
@@ -3206,17 +3206,24 @@ tabuas =<span class="st"> </span><span class="kw">read.csv</span>(<span class="s
 <div id="funções-atuariais" class="section level1" data-navmenu="Funções Atuariais">
 <h1>Funções Atuariais</h1>
 <p>Nessa aba vocês encontraram a formula de calculo para algumas funções atuariais (as funções ainda estão em desenvolvimento, nem todas foram completamente testadas).</p>
-<p>Agradecimento aos amigos <strong>Matheus Saraiva</strong> e <strong>Walef Mendonça</strong></p>
+<p>Link com o csv das tábuas de via: [tabuas] (<a href="https://drive.google.com/file/d/1ENc1tIuW-3e1DnPVOp0bsMEi5tZsfKkU/view?usp=sharing" class="uri">https://drive.google.com/file/d/1ENc1tIuW-3e1DnPVOp0bsMEi5tZsfKkU/view?usp=sharing</a>)</p>
+<p>Apos o dowload selecione o diretório do <em>R</em> (<code>Ctrl + Shift + H</code>)</p>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">qx =<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">'tabuas_de_vida.csv'</span>, <span class="dt">h =</span> T, <span class="dt">sep =</span> <span class="st">';'</span>, <span class="dt">dec =</span> <span class="st">','</span>)
+qx[<span class="kw">is.na</span>(qx)] &lt;-<span class="st"> </span><span class="dv">0</span> <span class="co">#trocar os NA por 0</span></code></pre></div>
+<p>Agradecimento aos amigos <strong>Matheus</strong>, <strong>Walef</strong> e <strong>Danilo</strong> pela ajuda com esta plataforma</p>
 <hr />
 </div>
 <div id="seguro-vitalício" class="section level1" data-navmenu="Funções Atuariais">
 <h1>Seguro Vitalício</h1>
 <p><font size="5"> <strong>Seguro Vitalício</strong> </font></p>
 <ul>
-<li>Caso Discreto <span class="math display">\[
-A_x = \sum_{t=0}^{\infty}\left (\frac{1}{1+i}  \right )^{t+1} \ _tp_x \ q_{x+t}
-\]</span></li>
-<li>Caso Contínuo</li>
+<li><p>Caso Discreto <span class="math display">\[
+A_x = \sum_{t=0}^{\omega-x}\left (\frac{1}{1+i}  \right )^{t+1} \ _tp_x \ q_{x+t}
+\]</span></p></li>
+<li><p>Caso Contínuo</p></li>
 </ul>
 <p><span class="math display">\[
 \bar{A}_x  = \int_{0}^{\infty} e^{-\delta t} f_{T_x}(t)dt
@@ -3248,7 +3255,7 @@ A =<span class="st"> </span><span class="cf">function</span>(<span class="dt">ta
 <li>Caso Discreto</li>
 </ul>
 <p><span class="math display">\[
-_{m|}A_x = \sum_{t=m}^{\infty}\left (\frac{1}{1+i}  \right )^{t+1} \ _tp_x \ q_{x+t} = v^m \ _mp_x A_{x+m}
+_{m|}A_x = \sum_{t=m}^{w-x-m}\left (\frac{1}{1+i}  \right )^{t+1} \ _tp_x \ q_{x+t} = v^m \ _mp_x A_{x+m}
 \]</span></p>
 <ul>
 <li>Caso Contínuo</li>
@@ -3338,7 +3345,7 @@ _{m|}\bar{A}_{x^1:\bar{n|}} = \int_{t=m}^{m+n}e^{-\delta t} f_{T_x}(t)dt
 <li>Comutação</li>
 </ul>
 <p><span class="math display">\[
-_{m|}A_{x^1:\bar{n|}} = \frac{M_{x+m}=M_{x+m+n}}{D_{x}}
+_{m|}A_{x^1:\bar{n|}} - \frac{M_{x+m}=M_{x+m+n}}{D_{x}}
 \]</span></p>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
@@ -3367,7 +3374,7 @@ A_temp_dif =<span class="st"> </span><span class="cf">function</span>(<span clas
 <li>Caso Discreto</li>
 </ul>
 <p><span class="math display">\[
-A_{x:\bar{n|^1}} = \left (\frac{1}{1+i}  \right )^{t} \ _tp_x 
+A_{x:\bar{n|^1}} = \left (\frac{1}{1+i}  \right )^{n} \ _np_x 
 \]</span></p>
 <ul>
 <li>Comutação</li>
