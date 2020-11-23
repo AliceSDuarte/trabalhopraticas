@@ -3152,6 +3152,9 @@ tabuas =<span class="st"> </span><span class="kw">read.csv</span>(<span class="s
 <h1>Tarefa 1</h1>
 <p><font size="5"> <strong>Tarefa 1: Resumo dos dados</strong> </font></p>
 <p>Nesta primeira tarefa você vão conhecer melhor os nossos dados respondendo algumas peguntas, lembrem-se de incluir no relatório de vocês essa tarefa no <strong>segundo</strong> capítulo (reservem o primeiro capítulo para uma introdução)</p>
+<ul>
+<li>Os dados estão na pasta do drive (<a href="https://drive.google.com/drive/u/0/folders/1a_92RYCzup_vBq7555m0IPd5ukw1gnKJ">Drive/PraticasAtuariais</a>.), faça o download e se divirta!</li>
+</ul>
 <p><strong>Perguntas</strong></p>
 <pre><code>1 . Qual a distribuição (por sexo e idade) dos servidores ativos? e dos inativos?
 
@@ -3333,7 +3336,7 @@ A_temp =<span class="st"> </span><span class="cf">function</span>(<span class="d
 <li>Caso Discreto</li>
 </ul>
 <p><span class="math display">\[
-_{m|}A_{x^1:\bar{n|}} = \sum_{t=m}^{m+n-1}\left (\frac{1}{1+i}  \right )^{t+1} \ _tp_x \ q_{x+t} = \left (\frac{1}{1+i}  \right )^{m} \ _mp+x . A_{x+m^1:\bar{n|}} 
+_{m|}A_{x^1:\bar{n|}} = \sum_{t=m}^{m+n-1}\left (\frac{1}{1+i}  \right )^{t+1} \ _tp_x \ q_{x+t} = \left (\frac{1}{1+i}  \right )^{m} \ _mp_x . A_{x+m^1:\bar{n|}} 
 \]</span></p>
 <ul>
 <li>Caso Contínuo</li>
@@ -3345,7 +3348,7 @@ _{m|}\bar{A}_{x^1:\bar{n|}} = \int_{t=m}^{m+n}e^{-\delta t} f_{T_x}(t)dt
 <li>Comutação</li>
 </ul>
 <p><span class="math display">\[
-_{m|}A_{x^1:\bar{n|}} - \frac{M_{x+m}=M_{x+m+n}}{D_{x}}
+_{m|}A_{x^1:\bar{n|}} - \frac{M_{x+m}-M_{x+m+n}}{D_{x}}
 \]</span></p>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
@@ -3443,6 +3446,12 @@ A_dotal_misto =<span class="st"> </span><span class="cf">function</span>(<span c
 <p><span class="math display">\[
 \ddot{a}_x = \frac{N_x}{D_x}
 \]</span></p>
+<ul>
+<li>Anuidade Fracionada (Formula de Woolhouse)</li>
+</ul>
+<p><span class="math display">\[
+\ddot{a}_x^{(m)} \approx \ddot{a}_x - \frac{m-1}{2m}
+\]</span></p>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
@@ -3478,6 +3487,12 @@ a_ant_vit =<span class="st"> </span><span class="cf">function</span>(<span class
 </ul>
 <p><span class="math display">\[
 \ddot{a}_{x:\bar{n|}} = \frac{N_x-N_{x+n}}{D_x}
+\]</span></p>
+<ul>
+<li>Anuidade Fracionada (Formula de Woolhouse)</li>
+</ul>
+<p><span class="math display">\[
+\ddot{a}_{x:\bar{n|}}^{(m)} \approx \ddot{a}_{x:\bar{n|}} - \frac{m-1}{2m}(1-_nE_x)
 \]</span></p>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
@@ -3540,6 +3555,12 @@ _{m|} \ddot{a}_{x:\bar{n|}} = \left ( \frac{1}{1+i} \right )^m \ _mp_x \sum_{t=0
 <p><span class="math display">\[
 _{m|} \ddot{a}_{x:\bar{n|}} = \frac{N_{x+m}-N_{x+m+n}}{D_x}
 \]</span></p>
+<ul>
+<li>Anuidade Fracionada (Formula de Woolhouse)</li>
+</ul>
+<p><span class="math display">\[
+_{m|} \ddot{a}_{x:\bar{n|}}^{(m)} \approx _{m|} \ddot{a}_x  - \frac{m-1}{2m}(_mE_x-_{n+m}E_x)
+\]</span></p>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
@@ -3576,6 +3597,9 @@ a_x = \frac{N_{x+1}}{D_x}
 </ul>
 <p><span class="math display">\[
 \bar{a}_x = \int_{t=0}^{\infty}e^{\delta t} \ _tp_x \ dx
+\]</span> - Anuidade Fracionada (Formula de Woolhouse)</p>
+<p><span class="math display">\[
+{a}_x^{(m)} \approx  {a}_x + \frac{m-1}{2m}
 \]</span></p>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
@@ -3638,6 +3662,12 @@ a_{x:\bar{n|}} = \sum_{t=1}^{n}\left ( \frac{1}{1+i} \right )^t \ _tp_x
 <p><span class="math display">\[
 a_{x:\bar{n|}} = \frac{N_{x+1} - N_{x+n+1}}{D_x}
 \]</span></p>
+<ul>
+<li>Anuidade Fracionada (Formula de Woolhouse)</li>
+</ul>
+<p><span class="math display">\[
+{a}_{x:\bar{n|}}^{(m)} \approx  a_{x:\bar{n|}} + \frac{m-1}{2m}(1-_nE_x)
+\]</span></p>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
@@ -3667,6 +3697,9 @@ _{m|} a_{x:\bar{n|}} = \left ( \frac{1}{1+i} \right )^t \ _tp_x \sum_{t=1}^{n+m}
 </ul>
 <p><span class="math display">\[
 _{m|} a_{x:\bar{n|}} = \frac{N_{x+m+1} - N_{x+m+n+1}}{D_x}
+\]</span> - Anuidade Fracionada (Formula de Woolhouse)</p>
+<p><span class="math display">\[
+_{m|}{a}_{x:\bar{n|}}^{(m)} \approx _{m|}a_{x:\bar{n|}} + \frac{m-1}{2m}(_mE_x-_{n+m}E_x)
 \]</span></p>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
