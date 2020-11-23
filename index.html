@@ -9,9 +9,9 @@
 
 
 
-<title>Trabalho de Práticas Atuariais 2020.2 ERE</title>
+<title>Práticas Atuariais e GR 2020.2 ERE</title>
 
-<meta property="og:title" content="Trabalho de Práticas Atuariais 2020.2 ERE" />
+<meta property="og:title" content="Práticas Atuariais e GR 2020.2 ERE" />
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
@@ -843,7 +843,7 @@ html, body {
   
 </span>
 <span class="navbar-brand">
-  Trabalho de Práticas Atuariais 2020.2 ERE
+  Práticas Atuariais e GR 2020.2 ERE
   <span class="navbar-author">
     Alice Duarte
     </span>
@@ -2651,28 +2651,32 @@ window.FlexDashboardComponents.push({
 
 <div id="dashboard-container">
 
-
 <hr />
-<div id="home-page" class="section level1">
-<h1>HOME PAGE</h1>
-<p><font size="5"> <strong>HOME PAGE</strong> </font></p>
+<div id="pagina-inicial" class="section level1">
+<h1>Pagina Inicial</h1>
+<p><font size="5"> <strong>Pagina Inicial</strong> </font></p>
 <p>Bem vindos alunos de Práticas Atuariais e Gestão de Riscos, vou utilizar esse site para deixar mais dinamico as tarefas e trabalhos de vocês.</p>
 <p><strong>O trabalho será dividido em duas etapas:</strong></p>
-<pre><code>1 - códigos no R ou no Python das tarefas 
-    - Tarefa 1
-    - Tarefa 2
-
-2 - Relatório final</code></pre>
+<ol style="list-style-type: decimal">
+<li>códigos no R ou no Python das tarefas
+<ul>
+<li>Tarefa 1 (Disponível)</li>
+<li>Tarefa 2 (Disponível)</li>
+<li>Tarefa 3 (Indisponível)</li>
+<li>Tarefa 4 (Indisponível)</li>
+<li>Tarefa 5 (Indisponível)</li>
+<li>Tarefa 6 (Indisponível)</li>
+</ul></li>
+<li>Relatório final</li>
+</ol>
 <p>Na pasta da disciplina do Drive vocês tem um modelo do Relatório Final</p>
 <p>Nessa primeira etapa vamos conhecer melhor nossos dados e definir as regras do nosso RPPS para isso vamos primeiramente carregar os dados no <strong>R</strong> certifiquem de que o R e o RStudio esteja atualizado (caso não esteja atualizado vou deixar uma aba no menu para ajuda-los)</p>
 <p>As duas primeiras tarefas já estão disponível, para as demais dependo da resposta de vocês da tarefa 2.</p>
-<p>Qualquer dúvida estou a disposição !</p>
-<p>Link do Drive: <a href="https://drive.google.com/drive/u/0/folders/12Erb-zyOJ0MOVyvx_foyTUIFJ9KcUeFU" class="uri">https://drive.google.com/drive/u/0/folders/12Erb-zyOJ0MOVyvx_foyTUIFJ9KcUeFU</a></p>
-<p>Aqueles que tem familiaridade com o LaTeX no link abaixo tem um template legal do overleaf para usarem, não edite o template <strong>FAÇA UMA CÓPIA</strong>. (Template/LaTeX)[<a href="https://www.overleaf.com/read/zmkjkjsmdjwh" class="uri">https://www.overleaf.com/read/zmkjkjsmdjwh</a>]</p>
+<p>Qualquer dúvida estou a disposição ! Att. Alice</p>
 <p>email: <a href="mailto:alice.duarte@unifal-mg.edu.br">alice.duarte@unifal-mg.edu.br</a></p>
 <hr />
 </div>
-<div id="atualizando-o-r" class="section level1" data-navmenu="Primeiros Passos">
+<div id="atualizando-o-r" class="section level1" data-navmenu="Dicas e Sugestões">
 <h1>Atualizando o R</h1>
 <p><font size="5"> <strong>1. Atualizando o R com o pacote installr</strong> </font></p>
 <p>Primeiro instalem o pacote <code>installr</code> em seguida executem o comando <code>updateR()</code> para atualizar caso seja necesário, atenção nas opções do pacote.</p>
@@ -2687,7 +2691,7 @@ window.FlexDashboardComponents.push({
 <span class="co"># updateR()</span></code></pre></div>
 <hr />
 </div>
-<div id="importando-os-dados-do-trabalho" class="section level1" data-navmenu="Primeiros Passos">
+<div id="importando-os-dados-do-trabalho" class="section level1" data-navmenu="Dicas e Sugestões">
 <h1>Importando os dados do trabalho</h1>
 <p><font size="5"> <strong>2. Importando os dados do trabalho</strong> </font></p>
 <ul>
@@ -3142,9 +3146,11 @@ tabuas =<span class="st"> </span><span class="kw">read.csv</span>(<span class="s
 </tr>
 </tbody>
 </table>
+<hr />
 </div>
-<div id="tarefa-1-resumo-dos-dados" class="section level1">
-<h1>Tarefa 1: Resumo dos dados</h1>
+<div id="tarefa-1" class="section level1" data-navmenu="Tarefas">
+<h1>Tarefa 1</h1>
+<p><font size="5"> <strong>Tarefa 1: Resumo dos dados</strong> </font></p>
 <p>Nesta primeira tarefa você vão conhecer melhor os nossos dados respondendo algumas peguntas, lembrem-se de incluir no relatório de vocês essa tarefa no <strong>segundo</strong> capítulo (reservem o primeiro capítulo para uma introdução)</p>
 <p><strong>Perguntas</strong></p>
 <pre><code>1 . Qual a distribuição (por sexo e idade) dos servidores ativos? e dos inativos?
@@ -3155,9 +3161,11 @@ tabuas =<span class="st"> </span><span class="kw">read.csv</span>(<span class="s
 
 4. Além disso faça o resumo estatístico completo das variáveis dos dois bancos de dados (`summary`)</code></pre>
 <p>Lembrem-se de enviar o script do R na data da entrega da tarefa, o relatório com os resultados fica pro final da disciplina</p>
+<hr />
 </div>
-<div id="tarefa-2-regras-do-rpps" class="section level1">
-<h1>Tarefa 2: Regras do RPPS</h1>
+<div id="tarefa-2" class="section level1" data-navmenu="Tarefas">
+<h1>Tarefa 2</h1>
+<p><font size="5"> <strong>Tarefa 2: Regras do RPPS</strong> </font></p>
 <p>Ainda nessa primeira etapa vamos definir quais as regras no nosso RPPS, para isso dividam-se em duplas e escolham uma das perguntas abaixo para responder (uma pergunta por dupla), sejam diretos e justifiquem a resposta</p>
 <p><strong>Perguntas</strong></p>
 <pre><code>1. Qual tábua de vida será utilizada?
@@ -3170,6 +3178,503 @@ tabuas =<span class="st"> </span><span class="kw">read.csv</span>(<span class="s
 <p>Usem o miro para esta tarefa para certificar que nenhum colega tenha escolhido o mesmo tema, coloquem no quadro o nome da dupla, o tema escolhido, a resposta e a justificativa.</p>
 <p><strong>Link do miro</strong> (Miro/Práticas)[<a href="https://miro.com/app/board/o9J_leh8M5o=/" class="uri">https://miro.com/app/board/o9J_leh8M5o=/</a>]</p>
 <p>Após todas as duplas preencherem o quadro já é possivel escrever o terceiro capítulo do trabalho (Bases Tecnicas)</p>
+<hr />
+</div>
+<div id="instruções-para-o-relatório" class="section level1">
+<h1>Instruções para o relatório</h1>
+<p>O relatório final deve conter obrigatoriamente:</p>
+<ul>
+<li>Introdução</li>
+<li>Resumo Estatístico
+<ul>
+<li>Resultado da Tarefa 1</li>
+</ul></li>
+<li>Bases Técnicas
+<ul>
+<li>Resultado da Tarefa 2 de todos os colegas</li>
+</ul></li>
+<li>Provisão Matemática de Benefícios Concedidos</li>
+<li>Provisão Matemática de Benefícios à Conceder.</li>
+<li>Considerações Finais</li>
+<li>Referências</li>
+</ul>
+<p>Vocês vão encontrar um modelo do relatório na pasta do drive</p>
+<p>Link do Drive: <a href="https://drive.google.com/drive/u/0/folders/12Erb-zyOJ0MOVyvx_foyTUIFJ9KcUeFU" class="uri">https://drive.google.com/drive/u/0/folders/12Erb-zyOJ0MOVyvx_foyTUIFJ9KcUeFU</a></p>
+<p>Aqueles que tem familiaridade com o LaTeX no link abaixo tem um template legal do overleaf para usarem, não edite o template <strong>FAÇA UMA CÓPIA</strong>. (Template/LaTeX)[<a href="https://www.overleaf.com/read/zmkjkjsmdjwh" class="uri">https://www.overleaf.com/read/zmkjkjsmdjwh</a>]</p>
+<hr />
+</div>
+<div id="funções-atuariais" class="section level1" data-navmenu="Funções Atuariais">
+<h1>Funções Atuariais</h1>
+<p>Nessa aba vocês encontraram a formula de calculo para algumas funções atuariais (as funções ainda estão em desenvolvimento, nem todas foram completamente testadas).</p>
+<p>Agradecimento aos amigos <strong>Matheus Saraiva</strong> e <strong>Walef Mendonça</strong></p>
+<hr />
+</div>
+<div id="seguro-vitalício" class="section level1" data-navmenu="Funções Atuariais">
+<h1>Seguro Vitalício</h1>
+<p><font size="5"> <strong>Seguro Vitalício</strong> </font></p>
+<ul>
+<li>Caso Discreto <span class="math display">\[
+A_x = \sum_{t=0}^{\infty}\left (\frac{1}{1+i}  \right )^{t+1} \ _tp_x \ q_{x+t}
+\]</span></li>
+<li>Caso Contínuo</li>
+</ul>
+<p><span class="math display">\[
+\bar{A}_x  = \int_{0}^{\infty} e^{-\delta t} f_{T_x}(t)dt
+\]</span> - Comutação</p>
+<p><span class="math display">\[
+A_x = \frac{M_x}{D_x}
+\]</span></p>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># SEGURO DE VIDA VITALICIO ------------------------------------------------</span>
+A =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">'AT_49_F'</span>, idade, juros){
+  qx =<span class="st"> </span>qx[, tabua]
+  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span>
+  qx =<span class="st"> </span>qx[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span><span class="kw">length</span>(qx)]
+  px =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span><span class="op">-</span>qx[<span class="dv">1</span><span class="op">:</span>(<span class="kw">length</span>(qx)<span class="op">-</span><span class="dv">1</span>)])
+  t =<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span><span class="op">:</span>(<span class="kw">length</span>(qx)<span class="op">-</span><span class="dv">1</span>))
+  pxx =<span class="st"> </span><span class="kw">cumprod</span>(px)
+  <span class="kw">return</span>(
+    <span class="kw">sum</span>(v<span class="op">**</span>(t<span class="op">+</span><span class="dv">1</span>)<span class="op">*</span>pxx<span class="op">*</span>qx)
+  )
+}</code></pre></div>
+<hr />
+</div>
+<div id="seguro-vitalício-diferido" class="section level1" data-navmenu="Funções Atuariais">
+<h1>Seguro Vitalício Diferido</h1>
+<p><font size="5"> <strong>Seguro Vitalício Diferido</strong> </font></p>
+<ul>
+<li>Caso Discreto</li>
+</ul>
+<p><span class="math display">\[
+_{m|}A_x = \sum_{t=m}^{\infty}\left (\frac{1}{1+i}  \right )^{t+1} \ _tp_x \ q_{x+t} = v^m \ _mp_x A_{x+m}
+\]</span></p>
+<ul>
+<li>Caso Contínuo</li>
+</ul>
+<p><span class="math display">\[
+_{m|}\bar{A}_x = \int_{m}^{\infty} e^{-\delta t} f_{T_x}(t)dt
+\]</span></p>
+<ul>
+<li>Comutação</li>
+</ul>
+<p><span class="math display">\[
+_{m|}A_x = \frac{M_{x+m}}{D_x}
+\]</span></p>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#SEGURO DE VIDA VITALICIO DIFERIDO</span>
+A_dif =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">'AT_49_F'</span>, idade, juros, dif){
+  qx =<span class="st"> </span>qx[, tabua]
+  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span>
+  qx =<span class="st"> </span>qx[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span><span class="kw">length</span>(qx)]
+  px =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span><span class="op">-</span>qx[<span class="dv">1</span><span class="op">:</span>(<span class="kw">length</span>(qx)<span class="op">-</span><span class="dv">1</span>)])
+  t =<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span><span class="op">:</span>(<span class="kw">length</span>(qx)<span class="op">-</span><span class="dv">1</span>))
+  dotal =<span class="st"> </span>v<span class="op">**</span>(dif)<span class="op">*</span><span class="kw">prod</span>(px[<span class="dv">1</span><span class="op">:</span>dif])
+  pxx =<span class="st"> </span><span class="kw">cumprod</span>(px)
+  <span class="kw">return</span>(
+    <span class="kw">sum</span>(v<span class="op">**</span>(t<span class="op">+</span><span class="dv">1</span>)<span class="op">*</span>pxx<span class="op">*</span>qx)<span class="op">*</span>dotal
+  )
+}</code></pre></div>
+<hr />
+</div>
+<div id="seguro-temporário" class="section level1" data-navmenu="Funções Atuariais">
+<h1>Seguro Temporário</h1>
+<p><font size="5"> <strong>Seguro Temporário</strong> </font></p>
+<ul>
+<li>Caso Discreto</li>
+</ul>
+<p><span class="math display">\[
+A_{x^1:\bar{n|}} = \sum_{t=0}^{n-1}\left (\frac{1}{1+i}  \right )^{t+1} \ _tp_x \ q_{x+t}
+\]</span></p>
+<ul>
+<li>Caso Contínuo</li>
+</ul>
+<p><span class="math display">\[
+\bar{A}_{x^1:\bar{n|}} = \int_{0}^{n} e^{-\delta t} f_{T_x}(t)dt
+\]</span></p>
+<ul>
+<li>Comutação</li>
+</ul>
+<p><span class="math display">\[
+A_{x^1:\bar{n|}} = \frac{M_x-M_{x+n}}{D_x}
+\]</span></p>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># SEGURO DE VIDA TEMPORARIO -----------------------------------------------</span>
+A_temp =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">'AT_49_F'</span>, idade, juros, n){
+  qx =<span class="st"> </span>qx[, tabua]
+  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span>
+  qx =<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">na.exclude</span>(qx[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(idade<span class="op">+</span>n)]))
+  px =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span><span class="op">-</span>qx[<span class="dv">1</span><span class="op">:</span>(n<span class="op">-</span><span class="dv">1</span>)])
+  t =<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span><span class="op">:</span>(n<span class="op">-</span><span class="dv">1</span>))
+  pxx =<span class="st"> </span><span class="kw">cumprod</span>(px)
+  <span class="kw">return</span>(
+    <span class="kw">sum</span>(v<span class="op">**</span>(t<span class="op">+</span><span class="dv">1</span>)<span class="op">*</span>pxx<span class="op">*</span>qx)
+  )
+  
+}</code></pre></div>
+<hr />
+</div>
+<div id="seguro-temporário-e-diferido" class="section level1" data-navmenu="Funções Atuariais">
+<h1>Seguro Temporário e Diferido</h1>
+<p><font size="5"> <strong>Seguro Temporário e Diferido</strong> </font></p>
+<ul>
+<li>Caso Discreto</li>
+</ul>
+<p><span class="math display">\[
+_{m|}A_{x^1:\bar{n|}} = \sum_{t=m}^{m+n-1}\left (\frac{1}{1+i}  \right )^{t+1} \ _tp_x \ q_{x+t} = \left (\frac{1}{1+i}  \right )^{m} \ _mp+x . A_{x+m^1:\bar{n|}} 
+\]</span></p>
+<ul>
+<li>Caso Contínuo</li>
+</ul>
+<p><span class="math display">\[
+_{m|}\bar{A}_{x^1:\bar{n|}} = \int_{t=m}^{m+n}e^{-\delta t} f_{T_x}(t)dt
+\]</span></p>
+<ul>
+<li>Comutação</li>
+</ul>
+<p><span class="math display">\[
+_{m|}A_{x^1:\bar{n|}} = \frac{M_{x+m}=M_{x+m+n}}{D_{x}}
+\]</span></p>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># SEGURO DE VIDA TEMPORARIO E DIFERIDO ------------------------------------</span>
+A_temp_dif =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">'AT_49_F'</span>, idade, juros, n, dif){
+  qx =<span class="st"> </span>qx[, tabua]
+  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span>
+  qx =<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">na.exclude</span>(qx[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(idade<span class="op">+</span>n<span class="op">+</span>dif)]))
+  px =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span><span class="op">-</span>qx[<span class="dv">1</span><span class="op">:</span>(n<span class="op">+</span>dif<span class="op">-</span><span class="dv">1</span>)])
+  t =<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span><span class="op">:</span>(n<span class="op">-</span><span class="dv">1</span>))
+  dotal =<span class="st"> </span>v<span class="op">**</span>(dif)<span class="op">*</span><span class="kw">prod</span>(px[<span class="dv">1</span><span class="op">:</span>dif])
+  pxx =<span class="st"> </span><span class="kw">cumprod</span>(px[(dif<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(<span class="kw">length</span>(px))])
+  
+  <span class="kw">return</span>(
+    <span class="kw">sum</span>(v<span class="op">**</span>(t<span class="op">+</span><span class="dv">1</span>)<span class="op">*</span>pxx<span class="op">*</span>qx[(dif<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(dif<span class="op">+</span>n)])<span class="op">*</span>dotal
+  )
+  
+}</code></pre></div>
+<hr />
+</div>
+<div id="dotal-puro" class="section level1" data-navmenu="Funções Atuariais">
+<h1>Dotal Puro</h1>
+<p><font size="5"> <strong>Seguro Dotal Puro</strong> </font></p>
+<ul>
+<li>Caso Discreto</li>
+</ul>
+<p><span class="math display">\[
+A_{x:\bar{n|^1}} = \left (\frac{1}{1+i}  \right )^{t} \ _tp_x 
+\]</span></p>
+<ul>
+<li>Comutação</li>
+</ul>
+<p><span class="math display">\[
+A_{x:\bar{n|^1}} = \frac{D_{x+n}}{D_x}
+\]</span></p>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># SEGURO DE VIDA DOTAL PURO -----------------------------------------------</span>
+A_dotal =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">'AT_49_F'</span>, idade, juros, n){
+  qx =<span class="st"> </span>qx[, tabua]
+  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span>
+  qx[<span class="kw">is.na</span>(qx)] =<span class="st"> </span><span class="dv">1</span>
+  px =<span class="st"> </span><span class="dv">1</span><span class="op">-</span>qx
+  dotal =<span class="st"> </span>(v<span class="op">^</span>n)<span class="op">*</span><span class="kw">prod</span>(px[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(idade<span class="op">+</span>n)])
+  <span class="kw">return</span>(dotal)
+}</code></pre></div>
+<hr />
+</div>
+<div id="dotal-misto" class="section level1" data-navmenu="Funções Atuariais">
+<h1>Dotal Misto</h1>
+<p><font size="5"> <strong>Seguro Misto</strong> </font></p>
+<ul>
+<li>Discreto</li>
+</ul>
+<p><span class="math display">\[
+A_{x:\bar{n|}} = A_{x:\bar{n|^1}} + A_{x^1:\bar{n|}}
+\]</span></p>
+<ul>
+<li>Comutação</li>
+</ul>
+<p><span class="math display">\[
+A_{x:\bar{n|}} = \frac{D_{x+n} + M_{x} - M_{x+m}}{D_x}
+\]</span></p>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># SEGURO DE VIDA DOTAL MISTO ----------------------------------------------</span>
+A_dotal_misto =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">'AT_49_F'</span>, idade, juros, n){
+  puro =<span class="st"> </span><span class="kw">A_dotal</span>(<span class="dt">tabua =</span> tabua, <span class="dt">idade =</span> idade, <span class="dt">juros =</span> juros, <span class="dt">n =</span> n)
+  temp =<span class="st"> </span><span class="kw">A_temp</span>(<span class="dt">tabua =</span> tabua, <span class="dt">idade =</span> idade, <span class="dt">juros =</span> juros, <span class="dt">n =</span> n)
+  <span class="kw">return</span>(puro <span class="op">+</span><span class="st"> </span>temp)
+}</code></pre></div>
+<hr />
+</div>
+<div id="anuidade-antecipada-vitalícia" class="section level1" data-navmenu="Funções Atuariais">
+<h1>Anuidade Antecipada Vitalícia</h1>
+<p><font size="5"> <strong>Anuidade Antecipada Vitalícia</strong> </font></p>
+<ul>
+<li>Caso Discreto</li>
+</ul>
+<p><span class="math display">\[
+\ddot{a}_x = \sum_{t=0}^{w-x}\left ( \frac{1}{1+i} \right )^t \ _tp_x
+\]</span></p>
+<ul>
+<li>Caso Contínuo</li>
+</ul>
+<p><span class="math display">\[
+\bar{a}_x = \int_{t=0}^{\infty}e^{\delta t} \ _tp_x \ dx
+\]</span></p>
+<ul>
+<li>Comutação</li>
+</ul>
+<p><span class="math display">\[
+\ddot{a}_x = \frac{N_x}{D_x}
+\]</span></p>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ANUIDADE ANTECIPADA VITALICIA  ------------------------------------------------------</span>
+a_ant_vit =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">'AT_49_F'</span>, idade, juros){
+  qx =<span class="st"> </span>qx[, tabua]
+  qx[<span class="kw">is.na</span>(qx)] =<span class="st"> </span><span class="dv">1</span>
+  px =<span class="st"> </span><span class="dv">1</span><span class="op">-</span>qx
+  pxx =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">cumprod</span>(px[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span><span class="kw">length</span>(px)]))
+  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span>
+  t &lt;-<span class="st"> </span>(<span class="dv">0</span><span class="op">:</span>(<span class="kw">length</span>(pxx)<span class="op">-</span><span class="dv">1</span>))
+  <span class="kw">return</span>(<span class="kw">sum</span>(v<span class="op">^</span>(t)<span class="op">*</span>pxx))
+}</code></pre></div>
+<hr />
+</div>
+<div id="anuidade-antecipada-temporária" class="section level1" data-navmenu="Funções Atuariais">
+<h1>Anuidade Antecipada Temporária</h1>
+<p><font size="5"> <strong>Anuidade Antecipada Temporária</strong> </font></p>
+<ul>
+<li>Caso Discreto</li>
+</ul>
+<p><span class="math display">\[
+\ddot{a}_{x:\bar{n|}} = \sum_{t=0}^{n}\left ( \frac{1}{1+i} \right )^t \ _tp_x
+\]</span></p>
+<ul>
+<li>Caso Contínuo</li>
+</ul>
+<p><span class="math display">\[
+\bar{a}_{x:\bar{n|}} = \int_{t=0}^{n}e^{\delta t} \ _tp_x \ dx
+\]</span></p>
+<ul>
+<li>Caso Discreto</li>
+</ul>
+<p><span class="math display">\[
+\ddot{a}_{x:\bar{n|}} = \frac{N_x-N_{x+n}}{D_x}
+\]</span></p>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ANUIDADE ANTECIPADA TEMPORARIA ------------------------------------------</span>
+a_ant_temp =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">'AT_49_F'</span>, idade, juros, n){
+  qx =<span class="st"> </span>qx[, tabua]
+  qx[<span class="kw">is.na</span>(qx)] =<span class="st"> </span><span class="dv">1</span>
+  px =<span class="st"> </span><span class="dv">1</span><span class="op">-</span>qx
+  pxx =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">cumprod</span>(px[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(idade<span class="op">+</span>n<span class="op">-</span><span class="dv">1</span>)]))
+  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span>
+  t &lt;-<span class="st"> </span>(<span class="dv">0</span><span class="op">:</span>(n<span class="op">-</span><span class="dv">1</span>))
+  <span class="kw">return</span>(<span class="kw">sum</span>(v<span class="op">^</span>(t)<span class="op">*</span>pxx))
+}</code></pre></div>
+<hr />
+</div>
+<div id="anuidade-antecipada-vitalícia-e-diferida" class="section level1" data-navmenu="Funções Atuariais">
+<h1>Anuidade Antecipada Vitalícia e Diferida</h1>
+<p><font size="5"> <strong>Anuidade Antecipada Vitalícia e Diferida</strong> </font></p>
+<ul>
+<li>Caso Discreto</li>
+</ul>
+<p><span class="math display">\[
+_{m|} \ddot{a}_x =\left ( \frac{1}{1+i} \right )^m \  _mp_x \sum_{t=0}^{w-x-m-1}\left ( \frac{1}{1+i} \right )^t \ _tp_{x+m}
+\]</span></p>
+<ul>
+<li>Comutação</li>
+</ul>
+<p><span class="math display">\[
+_{m|} \ddot{a}_x = \frac{N_{x+m}}{D_x}
+\]</span></p>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ANUIDADE ANTECIPADA VITALICIA E DIFERIDA --------------------------------</span>
+a_ant_vit_dif =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">'AT_49_F'</span>, idade, juros, dif){
+  qx =<span class="st"> </span>qx[, tabua]
+  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span>
+  qx[<span class="kw">is.na</span>(qx)] =<span class="st"> </span><span class="dv">1</span>
+  px =<span class="st"> </span><span class="dv">1</span><span class="op">-</span>qx
+  dotal =<span class="st"> </span>(v<span class="op">^</span>dif)<span class="op">*</span><span class="kw">prod</span>(px[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(idade<span class="op">+</span>dif)])
+  pxx =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">cumprod</span>(px[(idade<span class="op">+</span>dif<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(<span class="kw">length</span>(px)<span class="op">-</span><span class="dv">1</span>)]))
+  t =<span class="st"> </span>(<span class="dv">0</span><span class="op">:</span>(<span class="kw">length</span>(pxx)<span class="op">-</span><span class="dv">1</span>))
+  <span class="kw">return</span>(dotal<span class="op">*</span><span class="kw">sum</span>(v<span class="op">**</span>t <span class="op">*</span><span class="st"> </span>pxx))
+}</code></pre></div>
+<hr />
+</div>
+<div id="anuidade-antecipada-temporária-e-diferida" class="section level1" data-navmenu="Funções Atuariais">
+<h1>Anuidade Antecipada Temporária e Diferida</h1>
+<p><font size="5"> <strong>Anuidade Antecipada Temporária e Diferida</strong> </font></p>
+<ul>
+<li>Caso Discreto</li>
+</ul>
+<p><span class="math display">\[
+_{m|} \ddot{a}_{x:\bar{n|}} = \left ( \frac{1}{1+i} \right )^m \ _mp_x \sum_{t=0}^{n+m-1}\left ( \frac{1}{1+i} \right )^t \ _tp_{x+m}
+\]</span></p>
+<ul>
+<li>Comutação</li>
+</ul>
+<p><span class="math display">\[
+_{m|} \ddot{a}_{x:\bar{n|}} = \frac{N_{x+m}-N_{x+m+n}}{D_x}
+\]</span></p>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ANUIDADE ANTECIPADA DIFERIDA E TEMPORARIA -------------------------------</span>
+a_ant_temp_dif =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">'AT_49_F'</span>, idade, juros, n, dif){
+  qx =<span class="st"> </span>qx[, tabua]
+  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span>
+  qx[<span class="kw">is.na</span>(qx)] =<span class="st"> </span><span class="dv">1</span>
+  px =<span class="st"> </span><span class="dv">1</span><span class="op">-</span>qx
+  dotal =<span class="st"> </span>(v<span class="op">^</span>dif)<span class="op">*</span><span class="kw">prod</span>(px[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(idade<span class="op">+</span>dif)])
+  pxx =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">cumprod</span>(px[(idade<span class="op">+</span>dif<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(idade<span class="op">+</span>dif<span class="op">+</span>n<span class="op">-</span><span class="dv">1</span>)]))
+  t =<span class="st"> </span>(<span class="dv">0</span><span class="op">:</span>(<span class="kw">length</span>(pxx)<span class="op">-</span><span class="dv">1</span>))
+  <span class="kw">return</span>(dotal<span class="op">*</span><span class="kw">sum</span>(v<span class="op">**</span>t <span class="op">*</span><span class="st"> </span>pxx))
+}</code></pre></div>
+<hr />
+</div>
+<div id="anuidade-postecipada-e-vitalícia" class="section level1" data-navmenu="Funções Atuariais">
+<h1>Anuidade Postecipada e Vitalícia</h1>
+<p><font size="5"> <strong>Anuidade Postecipada e Vitalícia</strong> </font></p>
+<ul>
+<li>Caso Discreto</li>
+</ul>
+<p><span class="math display">\[
+a_x = \sum_{t=1}^{w-x}\left ( \frac{1}{1+i} \right )^t \ _tp_x
+\]</span></p>
+<ul>
+<li>Comutação</li>
+</ul>
+<p><span class="math display">\[
+a_x = \frac{N_{x+1}}{D_x}
+\]</span></p>
+<ul>
+<li>Caso Contínuo</li>
+</ul>
+<p><span class="math display">\[
+\bar{a}_x = \int_{t=0}^{\infty}e^{\delta t} \ _tp_x \ dx
+\]</span></p>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ANUIDADE POSTECIPADA VITALICIA ------------------------------------------</span>
+a_post_vit =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">'AT_49_F'</span>, idade, juros){
+  qx =<span class="st"> </span>qx[, tabua]
+  qx[<span class="kw">is.na</span>(qx)] =<span class="st"> </span><span class="dv">1</span>
+  px =<span class="st"> </span><span class="dv">1</span><span class="op">-</span>qx
+  pxx =<span class="st"> </span><span class="kw">c</span>(<span class="kw">cumprod</span>(px[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span><span class="kw">length</span>(px)]))
+  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span>
+  t &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</span>(<span class="kw">length</span>(pxx)))
+  <span class="kw">return</span>(<span class="kw">sum</span>(v<span class="op">^</span>(t)<span class="op">*</span>pxx))
+}</code></pre></div>
+<hr />
+</div>
+<div id="anuidade-postecipada-vitalícia-e-diferida" class="section level1" data-navmenu="Funções Atuariais">
+<h1>Anuidade Postecipada, Vitalícia e Diferida</h1>
+<p><font size="5"> <strong>Anuidade Postecipada, Vitalícia e Diferida</strong> </font></p>
+<ul>
+<li>Caso Discreto</li>
+</ul>
+<p><span class="math display">\[
+_{m|} a_x =\left ( \frac{1}{1+i} \right )^m \  _mp_x \sum_{t=1}^{w-x-m}\left ( \frac{1}{1+i} \right )^t \ _tp_{x+m}
+\]</span></p>
+<ul>
+<li>Comutação</li>
+</ul>
+<p><span class="math display">\[
+_{m|} a_x = \frac{N_{x+m+1}}{D_x}
+\]</span></p>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ANUIDADE POSTECIPADA VITALICIA E DIFERIDA -------------------------------</span>
+a_post_vit_dif =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">'AT_49_F'</span>, idade, juros, dif){
+  qx =<span class="st"> </span>qx[, tabua]
+  qx[<span class="kw">is.na</span>(qx)] =<span class="st"> </span><span class="dv">1</span>
+  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span>
+  px =<span class="st"> </span><span class="dv">1</span><span class="op">-</span>qx
+  dotal =<span class="st"> </span>v<span class="op">**</span>dif <span class="op">*</span><span class="st"> </span><span class="kw">prod</span>(px[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(idade<span class="op">+</span>dif)])
+  pxx =<span class="st"> </span><span class="kw">c</span>(<span class="kw">cumprod</span>(px[(idade<span class="op">+</span><span class="dv">1</span><span class="op">+</span>dif)<span class="op">:</span><span class="kw">length</span>(px)]))
+  t &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</span>(<span class="kw">length</span>(pxx)))
+  <span class="kw">return</span>(dotal <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(v<span class="op">^</span>(t)<span class="op">*</span>pxx))
+}</code></pre></div>
+<hr />
+</div>
+<div id="anuidade-postecipada-temporária" class="section level1" data-navmenu="Funções Atuariais">
+<h1>Anuidade Postecipada Temporária</h1>
+<p><font size="5"> <strong>Anuidade Postecipada Temporária</strong> </font></p>
+<ul>
+<li>Caso Discreto</li>
+</ul>
+<p><span class="math display">\[
+a_{x:\bar{n|}} = \sum_{t=1}^{n}\left ( \frac{1}{1+i} \right )^t \ _tp_x
+\]</span></p>
+<ul>
+<li>Comutação</li>
+</ul>
+<p><span class="math display">\[
+a_{x:\bar{n|}} = \frac{N_{x+1} - N_{x+n+1}}{D_x}
+\]</span></p>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ANUIDADE POSTECIPADA TEMPORARIA -----------------------------------------</span>
+a_post_temp =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">'AT_49_F'</span>, idade, juros, n){
+  qx =<span class="st"> </span>qx[, tabua]
+  qx[<span class="kw">is.na</span>(qx)] =<span class="st"> </span><span class="dv">1</span>
+  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span>
+  px =<span class="st"> </span><span class="dv">1</span><span class="op">-</span>qx
+  pxx =<span class="st"> </span><span class="kw">cumprod</span>(px[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(idade<span class="op">+</span>n)])
+  t &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</span>n)
+  <span class="kw">return</span>(<span class="kw">sum</span>(v<span class="op">^</span>(t)<span class="op">*</span>pxx))
+}</code></pre></div>
+<hr />
+</div>
+<div id="anuidade-postecipada-temporária-e-diferida" class="section level1" data-navmenu="Funções Atuariais">
+<h1>Anuidade Postecipada, Temporária e Diferida</h1>
+<p><font size="5"> <strong>Anuidade Postecipada, Temporária e Diferida</strong> </font></p>
+<ul>
+<li>Caso Discreto</li>
+</ul>
+<p><span class="math display">\[
+_{m|} a_{x:\bar{n|}} = \left ( \frac{1}{1+i} \right )^t \ _tp_x \sum_{t=1}^{n+m}\left ( \frac{1}{1+i} \right )^t \ _tp_{x+m}
+\]</span></p>
+<ul>
+<li>Comutação</li>
+</ul>
+<p><span class="math display">\[
+_{m|} a_{x:\bar{n|}} = \frac{N_{x+m+1} - N_{x+m+n+1}}{D_x}
+\]</span></p>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ANUIDADE POSTECIPADA TEMPORARIA E DIFERIDA ------------------------------</span>
+a_post_temp_dif =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">'AT_49_F'</span>, idade, juros, n, dif){
+  qx =<span class="st"> </span>qx[, tabua]
+  qx[<span class="kw">is.na</span>(qx)] =<span class="st"> </span><span class="dv">1</span>
+  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span>
+  px =<span class="st"> </span><span class="dv">1</span><span class="op">-</span>qx
+  dotal =<span class="st"> </span>v<span class="op">**</span>dif <span class="op">*</span><span class="st"> </span><span class="kw">prod</span>(px[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(idade<span class="op">+</span>dif)])
+  pxx =<span class="st"> </span><span class="kw">cumprod</span>(px[(idade<span class="op">+</span><span class="dv">1</span><span class="op">+</span>dif)<span class="op">:</span>(idade<span class="op">+</span>dif<span class="op">+</span>n)])
+  t &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</span>n)
+  <span class="kw">return</span>(dotal <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(v<span class="op">^</span>(t)<span class="op">*</span>pxx))
+}</code></pre></div>
 </div>
 
 </div>
