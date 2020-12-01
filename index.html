@@ -2662,16 +2662,13 @@ window.FlexDashboardComponents.push({
 <ul>
 <li>Tarefa 1 (Disponível)</li>
 <li>Tarefa 2 (Disponível)</li>
-<li>Tarefa 3 (Indisponível)</li>
+<li>Tarefa 3 (Disponível)</li>
 <li>Tarefa 4 (Indisponível)</li>
 <li>Tarefa 5 (Indisponível)</li>
 <li>Tarefa 6 (Indisponível)</li>
 </ul></li>
 <li>Relatório final</li>
 </ol>
-<p>Na pasta da disciplina do Drive vocês tem um modelo do Relatório Final</p>
-<p>Nessa primeira etapa vamos conhecer melhor nossos dados e definir as regras do nosso RPPS para isso vamos primeiramente carregar os dados no <strong>R</strong> certifiquem de que o R e o RStudio esteja atualizado (caso não esteja atualizado vou deixar uma aba no menu para ajuda-los)</p>
-<p>As duas primeiras tarefas já estão disponível, para as demais dependo da resposta de vocês da tarefa 2.</p>
 <p>Qualquer dúvida estou a disposição ! Att. Alice</p>
 <p>email: <a href="mailto:alice.duarte@unifal-mg.edu.br">alice.duarte@unifal-mg.edu.br</a></p>
 <hr />
@@ -3479,6 +3476,367 @@ tabuas =<span class="st"> </span><span class="kw">read.csv</span>(<span class="s
 <p><strong>Link do miro</strong> (Miro/Práticas)[<a href="https://miro.com/app/board/o9J_leh8M5o=/" class="uri">https://miro.com/app/board/o9J_leh8M5o=/</a>]</p>
 <p>Após todas as duplas preencherem o quadro já é possivel escrever o terceiro capítulo do trabalho (Bases Tecnicas)</p>
 <hr />
+</div>
+<div id="tarefa-3" class="section level1" data-navmenu="Tarefas">
+<h1>Tarefa 3</h1>
+<p><font size="5"> <strong>Tarefa 3: Provisão Matemática de Benefícios Concedidos</strong> </font></p>
+<p><font size="4"> <strong>PMBC: Provisão Matemática do Benefício Concedido</strong> </font></p>
+<p>É o valor atual dos compromissos relativo aos assistidos e pensionistas, os quais estão em gozo de benefício pelo plano. É calculada para os benefícios estruturados com base no regime financeiro de capitalização e para o grupo de servidores que já estão em gozo desse benefício, o cálculo se dá pela seguinte formula:</p>
+<p><span class="math display">\[ PMCB = \sum_{i=1}^{n} 13 . Beneficio . \ddot{a}^{12}_{xi}\]</span></p>
+<p>Essa tarefa (3) é a <strong>primeira etapa</strong> do cálculo do PMBC, vamos nessa semana calcular as anuidades e posteriormente armazenar no nosso banco de dados dos servidores <strong>inativos</strong>, para isso sugiro que criem uma nova coluna na tábua para receber essa anuidade, como foi decidido utilizar somente uma tábua para ambos os sexos precisamos preocupar apenas com a idade dos servidores.</p>
+<p>Para calculo das anuidades é importante seguir a tábua e a taxa de juros escolhida pela turma na tarefa anterior (Tarefa 2), importa-la e cortar a tábua. Vou deixar abaixo uma sugestão dos primeiros passos.</p>
+<p><strong>OBJETIVO:</strong> programar a anuidade vitalícia, antecipada e com fracionamento mensal para todas as idades lembrando que:</p>
+<p><span class="math display">\[\ddot{a}_x^{(12)} = \ddot{a}_x - \frac{11}{24} = \left (\sum_{i=0}^{\omega-x}v^t_tp_x   \right ) - \frac{11}{24}\]</span> 1. Fixar o diretório (<code>Ctrl + Shitf + H</code>) e importar as tábua</p>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tabuas =<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">'tabuas_de_vida.csv'</span>, <span class="dt">h =</span> T, <span class="dt">sep =</span> <span class="st">';'</span>, <span class="dt">dec =</span> <span class="st">','</span>)
+<span class="kw">kable</span>(<span class="kw">head</span>(tabuas))</code></pre></div>
+<table style="width:100%;">
+<colgroup>
+<col width="1%"></col>
+<col width="4%"></col>
+<col width="5%"></col>
+<col width="5%"></col>
+<col width="3%"></col>
+<col width="2%"></col>
+<col width="2%"></col>
+<col width="2%"></col>
+<col width="3%"></col>
+<col width="3%"></col>
+<col width="3%"></col>
+<col width="3%"></col>
+<col width="3%"></col>
+<col width="3%"></col>
+<col width="1%"></col>
+<col width="1%"></col>
+<col width="1%"></col>
+<col width="3%"></col>
+<col width="4%"></col>
+<col width="3%"></col>
+<col width="4%"></col>
+<col width="2%"></col>
+<col width="2%"></col>
+<col width="1%"></col>
+<col width="2%"></col>
+<col width="2%"></col>
+<col width="2%"></col>
+<col width="2%"></col>
+<col width="2%"></col>
+<col width="2%"></col>
+<col width="3%"></col>
+<col width="1%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">Idade</th>
+<th align="right">AMERICAN_EXPERIENCE</th>
+<th align="right">AT2000_.Suavizada.10.._FEM</th>
+<th align="right">AT2000_.Suavizada.10.._MAS</th>
+<th align="right">AT.2000_FEMALE</th>
+<th align="right">AT.2000_MALE</th>
+<th align="right">AT.49_FEMALE</th>
+<th align="right">AT.49_MALE</th>
+<th align="right">AT.83_FEMALE_.IAM.</th>
+<th align="right">AT.83_MALE_.IAM.</th>
+<th align="right">BR.EMSmt.v.2010.f</th>
+<th align="right">BR.EMSmt.v.2010.m</th>
+<th align="right">BR.EMSsb.v.2010.f</th>
+<th align="right">BR.EMSsb.v.2010.m</th>
+<th align="right">CSG.60</th>
+<th align="right">CSO.41</th>
+<th align="right">CSO.58</th>
+<th align="right">CSO58.FEM.AGE_LAST</th>
+<th align="right">CSO58.FEM.AGE_NEAREST</th>
+<th align="right">CSO58.MAS.AGE_LAST</th>
+<th align="right">CSO58.MAS.AGE_NEAREST</th>
+<th align="right">CSO58_FEMALE</th>
+<th align="right">CSO58_MALE</th>
+<th align="right">CSO80</th>
+<th align="right">GAM.71_FEMALE</th>
+<th align="right">GAM.71_MALE</th>
+<th align="right">IBGE_2006</th>
+<th align="right">IBGE_2007</th>
+<th align="right">IBGE_2008</th>
+<th align="right">IBGE_2009</th>
+<th align="right">GRUPAL_AMERICANA</th>
+<th align="right">HUNTERS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">0.15470</td>
+<td align="right">0.001615</td>
+<td align="right">0.002080</td>
+<td align="right">0.001794</td>
+<td align="right">0.002311</td>
+<td align="right">0.003210</td>
+<td align="right">0.004040</td>
+<td align="right">0.001835</td>
+<td align="right">0.002690</td>
+<td align="right">0.00128</td>
+<td align="right">0.00274</td>
+<td align="right">0.00038</td>
+<td align="right">0.00200</td>
+<td align="right">0.00832</td>
+<td align="right">0.02258</td>
+<td align="right">0.00708</td>
+<td align="right">0.003942</td>
+<td align="right">0.00620</td>
+<td align="right">0.004430</td>
+<td align="right">0.00708</td>
+<td align="right">0.00548</td>
+<td align="right">0.00633</td>
+<td align="right">0.00418</td>
+<td align="right">0.002219</td>
+<td align="right">0.003255</td>
+<td align="right">0.024891</td>
+<td align="right">0.024036</td>
+<td align="right">0.023295</td>
+<td align="right">0.022467</td>
+<td align="right">0.462</td>
+<td align="right">0.00710</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">0.06349</td>
+<td align="right">0.000680</td>
+<td align="right">0.000815</td>
+<td align="right">0.000755</td>
+<td align="right">0.000906</td>
+<td align="right">0.001360</td>
+<td align="right">0.001580</td>
+<td align="right">0.000778</td>
+<td align="right">0.001053</td>
+<td align="right">0.00046</td>
+<td align="right">0.00095</td>
+<td align="right">0.00038</td>
+<td align="right">0.00069</td>
+<td align="right">0.00207</td>
+<td align="right">0.00577</td>
+<td align="right">0.00176</td>
+<td align="right">0.001540</td>
+<td align="right">0.00167</td>
+<td align="right">0.001640</td>
+<td align="right">0.00176</td>
+<td align="right">0.00094</td>
+<td align="right">0.00100</td>
+<td align="right">0.00107</td>
+<td align="right">0.000940</td>
+<td align="right">0.001274</td>
+<td align="right">0.002292</td>
+<td align="right">0.002182</td>
+<td align="right">0.002291</td>
+<td align="right">0.002152</td>
+<td align="right">0.449</td>
+<td align="right">0.00687</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">0.03550</td>
+<td align="right">0.000353</td>
+<td align="right">0.000454</td>
+<td align="right">0.000392</td>
+<td align="right">0.000504</td>
+<td align="right">0.000703</td>
+<td align="right">0.000887</td>
+<td align="right">0.000402</td>
+<td align="right">0.000591</td>
+<td align="right">0.00025</td>
+<td align="right">0.00048</td>
+<td align="right">0.00020</td>
+<td align="right">0.00035</td>
+<td align="right">0.00179</td>
+<td align="right">0.00414</td>
+<td align="right">0.00152</td>
+<td align="right">0.001380</td>
+<td align="right">0.00141</td>
+<td align="right">0.001490</td>
+<td align="right">0.00152</td>
+<td align="right">0.00067</td>
+<td align="right">0.00075</td>
+<td align="right">0.00099</td>
+<td align="right">0.000486</td>
+<td align="right">0.000715</td>
+<td align="right">0.001255</td>
+<td align="right">0.001198</td>
+<td align="right">0.001188</td>
+<td align="right">0.001132</td>
+<td align="right">0.436</td>
+<td align="right">0.00665</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="right">0.02391</td>
+<td align="right">0.000261</td>
+<td align="right">0.000367</td>
+<td align="right">0.000290</td>
+<td align="right">0.000408</td>
+<td align="right">0.000521</td>
+<td align="right">0.000715</td>
+<td align="right">0.000298</td>
+<td align="right">0.000476</td>
+<td align="right">0.00016</td>
+<td align="right">0.00030</td>
+<td align="right">0.00013</td>
+<td align="right">0.00022</td>
+<td align="right">0.00172</td>
+<td align="right">0.00338</td>
+<td align="right">0.00146</td>
+<td align="right">0.001320</td>
+<td align="right">0.00135</td>
+<td align="right">0.001430</td>
+<td align="right">0.00146</td>
+<td align="right">0.00060</td>
+<td align="right">0.00068</td>
+<td align="right">0.00098</td>
+<td align="right">0.000360</td>
+<td align="right">0.000576</td>
+<td align="right">0.000922</td>
+<td align="right">0.000880</td>
+<td align="right">0.000778</td>
+<td align="right">0.000750</td>
+<td align="right">0.423</td>
+<td align="right">0.00644</td>
+</tr>
+<tr class="odd">
+<td align="right">4</td>
+<td align="right">0.01770</td>
+<td align="right">0.000209</td>
+<td align="right">0.000321</td>
+<td align="right">0.000232</td>
+<td align="right">0.000357</td>
+<td align="right">0.000419</td>
+<td align="right">0.000627</td>
+<td align="right">0.000240</td>
+<td align="right">0.000417</td>
+<td align="right">0.00012</td>
+<td align="right">0.00022</td>
+<td align="right">0.00010</td>
+<td align="right">0.00016</td>
+<td align="right">0.00165</td>
+<td align="right">0.00299</td>
+<td align="right">0.00140</td>
+<td align="right">0.001265</td>
+<td align="right">0.00129</td>
+<td align="right">0.001375</td>
+<td align="right">0.00140</td>
+<td align="right">0.00053</td>
+<td align="right">0.00061</td>
+<td align="right">0.00095</td>
+<td align="right">0.000290</td>
+<td align="right">0.000505</td>
+<td align="right">0.000699</td>
+<td align="right">0.000659</td>
+<td align="right">0.000568</td>
+<td align="right">0.000552</td>
+<td align="right">0.410</td>
+<td align="right">0.00624</td>
+</tr>
+<tr class="even">
+<td align="right">5</td>
+<td align="right">0.01360</td>
+<td align="right">0.000171</td>
+<td align="right">0.000291</td>
+<td align="right">0.000189</td>
+<td align="right">0.000324</td>
+<td align="right">0.000339</td>
+<td align="right">0.000566</td>
+<td align="right">0.000194</td>
+<td align="right">0.000377</td>
+<td align="right">0.00010</td>
+<td align="right">0.00018</td>
+<td align="right">0.00008</td>
+<td align="right">0.00013</td>
+<td align="right">0.00159</td>
+<td align="right">0.00276</td>
+<td align="right">0.00135</td>
+<td align="right">0.001215</td>
+<td align="right">0.00124</td>
+<td align="right">0.001325</td>
+<td align="right">0.00135</td>
+<td align="right">0.00047</td>
+<td align="right">0.00055</td>
+<td align="right">0.00090</td>
+<td align="right">0.000234</td>
+<td align="right">0.000456</td>
+<td align="right">0.000479</td>
+<td align="right">0.000469</td>
+<td align="right">0.000442</td>
+<td align="right">0.000432</td>
+<td align="right">0.397</td>
+<td align="right">0.00605</td>
+</tr>
+</tbody>
+</table>
+<ol start="2" style="list-style-type: decimal">
+<li>Observe que vai ser carregado varias tábuas, queremos apenas a BR-EMSmt 2010 M, podemos recortar apenas a idade e a coluna da tábua da seguinte forma:</li>
+</ol>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># criando um data frame apenas com a tabua que vamos usar</span>
+tabua_anuidade &lt;-<span class="st"> </span><span class="kw">data.frame</span>(tabuas<span class="op">$</span>Idade,tabuas<span class="op">$</span>BR.EMSmt.v.<span class="fl">2010.</span>m) 
+<span class="co"># Como os ultimos valores foram NA vamos excluir as ultimas linhas (pegar até a linha 114)</span>
+tabua_anuidade &lt;-<span class="st"> </span>tabua_anuidade[<span class="dv">1</span><span class="op">:</span><span class="dv">114</span>,]</code></pre></div>
+<p>Agora é com vocês, calculem as anuidades e armazenem na propria tábua, sugiro que já programem com o fracionamento de Woolhouse (taxa de 5%)</p>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tabua_anuidade<span class="op">$</span>ax &lt;-<span class="st"> </span><span class="dv">0</span> <span class="co"># Criando coluna que vai receber as anuidades</span>
+
+<span class="kw">names</span>(tabua_anuidade) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Idade&quot;</span>,<span class="st">&quot;BR-EMS-2010-M&quot;</span>,<span class="st">&quot;anuidade&quot;</span>)
+
+<span class="kw">kable</span>(<span class="kw">head</span>(tabua_anuidade))</code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Idade</th>
+<th align="right">BR-EMS-2010-M</th>
+<th align="right">anuidade</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">0.00274</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">0.00095</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">0.00048</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="right">0.00030</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">4</td>
+<td align="right">0.00022</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">5</td>
+<td align="right">0.00018</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p>Depois de preenchida a coluna de anuidades salvem o resultado dessa nova tábua com o comando</p>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># write.csv(tabua_anuidade,&quot;tabua_anuidade.csv&quot;)</span></code></pre></div>
+<p><strong>Dica:</strong> Lembre-se que a pessoa de idade 0 está armazenada na coluna 1 (no R) isso deve ser considerado!</p>
+<p><font size="4"> <strong>NÃO ESQUEÇA DE SALVAR ESSAS ANUIDADES CALCULADAS PARA AS PRÓXIMAS TAREFAS</strong> </font></p>
 </div>
 <div id="instruções-para-o-relatório" class="section level1">
 <h1>Instruções para o relatório</h1>
