@@ -1,0 +1,1237 @@
+---
+title: "Práticas Atuariais e GR 2020.2   ERE"
+author: "Alice Duarte"
+output: 
+  flexdashboard::flex_dashboard:
+    vertical_layout: scroll
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(knitr)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+-----------------------------------------------------------------------
+
+# Pagina Inicial
+
+<font size="5"> **Pagina Inicial** </font>
+
+
+Bem vindos alunos de Práticas Atuariais e Gestão de Riscos, vou utilizar esse site para deixar mais dinamico as tarefas e trabalhos de vocês.
+
+**O trabalho será dividido em duas etapas:**
+
+1. códigos no R ou no Python das tarefas 
+    - Tarefa 1 (Disponível)
+    - Tarefa 2 (Disponível)
+    - Tarefa 3 (Disponível)
+    - Tarefa 4 (Disponível)
+    - Tarefa 5 (Disponível)
+    - Tarefa 6 (Disponível)
+    - Tarefa 7 (Disponível) 
+    
+2. Relatório final
+
+
+Qualquer dúvida estou a disposição !
+Att. Alice
+
+email: alice.duarte@unifal-mg.edu.br
+
+
+
+-------------------------------------
+
+Atualizando o R {data-navmenu="Dicas e Sugestões"}
+=====================================
+
+<font size="5"> **1. Atualizando o R com o pacote installr** </font>
+
+
+Primeiro instalem o pacote `installr` em seguida executem o comando `updateR()` para atualizar caso seja necesário, atenção nas opções do pacote.
+
+```{r echo=FALSE, message = FALSE, warning = FALSE}
+#install.packages("installr")
+#install.packages("knitr")
+library("installr")
+library("xtable")
+library("knitr")
+# updateR()
+```
+
+
+```{r message = FALSE, warning = FALSE}
+#install.packages("installr")
+library("installr")
+# updateR()
+```
+
+-------------------------------------
+
+Importando os dados do trabalho {data-navmenu="Dicas e Sugestões"}
+=====================================
+
+<font size="5"> **2. Importando os dados do trabalho** </font>
+
+
+
+- Faça o dowload dos dados do trabalho no link a seguir [Drive/PraticasAtuariais](https://drive.google.com/drive/u/0/folders/1a_92RYCzup_vBq7555m0IPd5ukw1gnKJ).
+
+- Selecione no R o diretório onde estão os dados, para isso sugiro que use o comando `Ctrl + Shift + H`
+
+
+```{r}
+ativos <- read.table("ativos.txt")
+inativos <- read.table("inativos.txt")
+tabuas = read.csv('tabuas_de_vida.csv', h = T, sep = ';', dec = ',')
+```
+
+Vejamos agora o que tem em cada um dos bancos de dados.
+
+**Ativos**: servidores que ainda estão ativos (trabalhando)
+
+```{r}
+kable(head(ativos), align = "l")
+```
+
+**Inativos**: Servidores que já estão em gozo do benefício
+
+
+```{r}
+kable(head(inativos), align = "l")
+```
+
+**Tabuas**: Banco de tabuas fornecido pelo IBA, não são todas as tabuas mas algumas das mais usadas estão nesses dados.
+
+```{r}
+kable(head(tabuas))
+```
+
+
+------------------------------------
+
+Tarefa 1 {data-navmenu="Tarefas"}
+=====================================
+
+<font size="5"> **Tarefa 1: Resumo dos dados** </font>
+
+Nesta primeira tarefa você vão conhecer melhor os nossos dados respondendo algumas peguntas, lembrem-se de incluir no relatório de vocês essa tarefa no **segundo** capítulo (reservem o primeiro capítulo para uma introdução)
+
+- Os dados estão na pasta do drive ([Drive/PraticasAtuariais](https://drive.google.com/drive/u/0/folders/1a_92RYCzup_vBq7555m0IPd5ukw1gnKJ).), faça o download e se divirta!
+
+**Perguntas**
+
+    1 . Qual a distribuição (por sexo e idade) dos servidores ativos? e dos inativos?
+    
+    2. Qual o % de casais homossexuais e de heterossexuais?
+    
+    3. Para os inativos, quantos são aposentados e quantos são pensionistas?
+    
+    4. Além disso faça o resumo estatístico completo das variáveis dos dois bancos de dados (`summary`)
+
+Lembrem-se de enviar o script do R na data da entrega da tarefa, o relatório com os resultados fica pro final da disciplina
+
+
+<font size="5"> **Sugestão para apresentar os resultados no RELATÓRIO** </font>
+
+**1. ESTATÍSTICA DESCRITIVA DOS DADOS**
+
+**1.1 Ativo**
+
+**Tabela 1. Distribuição por Faixa Etária**
+
+
+|              | Feminino |    | Masculino |    |
+|--------------|----------|----|-----------|----|
+| Faixa Etária | nº       | \% | nº        | \% |
+| 0-20         |          |    |           |    |
+| 20-30        |          |    |           |    |
+| 30-40        |          |    |           |    |
+| 40-50        |          |    |           |    |
+| 50-60        |          |    |           |    |
+| 60-70        |          |    |           |    |
+| 70-80        |          |    |           |    |
+
+A tabela acima deve estar com os resultados da pergunta 1
+
+**Tabela 2. Composição dos Casais**
+
+|                 | nº | \% |
+|-----------------|----|----|
+| Homossexuais    |    |    |
+| Heterossexuais  |    |    |
+
+A tabela acima deve estar com os resultados da pergunta 2
+
+**Tabela 3. Resumo Estatístico:**
+
+|                       | Máximo | Mínimo | Média |
+|-----------------------|--------|--------|-------|
+| Idade                 |        |        |       |
+| Salário               |        |        |       |
+| Tempo de Contribuição |        |        |       |
+| Idade Conjuge         |        |        |       |
+| Idade do Filho 1      |        |        |       |
+| Idade do Filho 2      |        |        |       |
+
+A tabela acima deve estar com os resultados do summary
+
+**1.2 Inativos**
+
+**Tabela 4. Distribuição por Faixa Etária**
+
+|              | Feminino |    | Masculino |    |
+|--------------|----------|----|-----------|----|
+| Faixa Etária | nº       | \% | nº        | \% |
+| 0-20         |          |    |           |    |
+| 20-30        |          |    |           |    |
+| 30-40        |          |    |           |    |
+| 40-50        |          |    |           |    |
+| 50-60        |          |    |           |    |
+| 60-70        |          |    |           |    |
+| 70-80        |          |    |           |    |
+
+A tabela acima deve estar com os resultados da pergunta 1
+
+**Tabela 5. Composição dos Casais**
+
+|                 | nº | \% |
+|-----------------|----|----|
+| Homossexuais    |    |    |
+| Heterossexuais  |    |    |
+
+A tabela acima deve estar com os resultados da pergunta 2
+
+**Tabela 6. Situação do Benefício**
+
+|              | nº | \% |
+|--------------|----|----|
+| Aposentados  |    |    |
+| Pensionistas |    |    |
+
+A tabela acima deve estar com os resultados da pergunta 3
+
+**Tabela 7. Resumo Estatístico:**
+
+|               | Máximo | Mínimo | Média |
+|---------------|--------|--------|-------|
+| Idade         |        |        |       |
+| Benefício     |        |        |       |
+| Idade Conjuge |        |        |       |
+
+A tabela acima deve estar com os resultados do summary
+
+------------------------------------
+
+Tarefa 2 {data-navmenu="Tarefas"}
+=====================================
+
+<font size="5"> **Tarefa 2: Regras do RPPS** </font>
+
+Ainda nessa primeira etapa vamos definir quais as regras no nosso RPPS, para isso dividam-se em duplas e escolham uma das perguntas abaixo para responder (uma pergunta por dupla), sejam diretos e justifiquem a resposta
+
+**Perguntas**
+
+    1. Qual tábua de vida será utilizada?
+    
+    2. Qual taxa de juros?
+    
+    3. Qual a idade de aposentadoria para o sexo feminino e masculino?
+    
+    4. Qual vai ser o valor do benefício, ou seja, quanto a pessoa recebe ao se aposentar?
+    
+Usem o miro para esta tarefa para certificar que nenhum colega tenha escolhido o mesmo tema, coloquem no quadro o nome da dupla, o tema escolhido, a resposta e a justificativa.
+
+**Link do miro** (Miro/Práticas)[https://miro.com/app/board/o9J_leh8M5o=/]
+
+Após todas as duplas preencherem o quadro já é possivel escrever o terceiro capítulo do trabalho (Bases Tecnicas)
+
+------------------------------------
+
+Tarefa 3 {data-navmenu="Tarefas"}
+=====================================
+<font size="5"> **Tarefa 3: Provisão Matemática de Benefícios Concedidos** </font>
+
+<font size="4"> **PMBC: Provisão Matemática do Benefício Concedido** </font>
+
+É o valor atual dos compromissos relativo aos assistidos e pensionistas, os quais estão
+em gozo de benefício pelo plano. É calculada para os benefícios estruturados com base no
+regime financeiro de capitalização e para o grupo de servidores que já estão em gozo desse
+benefício, o cálculo se dá pela seguinte formula:
+
+$$ PMCB = \sum_{i=1}^{n} 13 . Beneficio . \ddot{a}^{12}_{xi}$$
+
+Essa tarefa (3) é a **primeira etapa** do cálculo do PMBC, vamos nessa semana calcular as anuidades e posteriormente armazenar no nosso banco de dados dos servidores **inativos**, para isso sugiro que criem uma nova coluna na tábua para receber essa anuidade, como foi decidido utilizar somente uma tábua para ambos os sexos precisamos preocupar apenas com a idade dos servidores.
+
+Para calculo das anuidades é importante seguir a tábua e a taxa de juros escolhida pela turma na tarefa anterior (Tarefa 2), importa-la e cortar a tábua. Vou deixar abaixo uma sugestão dos primeiros passos.
+
+
+**OBJETIVO:** programar a anuidade vitalícia, antecipada e com fracionamento mensal para todas as idades lembrando que:
+
+$$\ddot{a}_x^{(12)} = \ddot{a}_x - \frac{11}{24} = \left (\sum_{i=0}^{\omega-x}v^t_tp_x   \right ) - \frac{11}{24}$$
+1. Fixar o diretório (`Ctrl + Shitf + H`) e importar as tábua
+
+```{r}
+tabuas = read.csv('tabuas_de_vida.csv', h = T, sep = ';', dec = ',')
+kable(head(tabuas))
+```
+
+2. Observe que vai ser carregado varias tábuas, queremos apenas a BR-EMSmt 2010 M, podemos recortar apenas a idade e a coluna da tábua da seguinte forma:
+
+```{r}
+# criando um data frame apenas com a tabua que vamos usar
+tabua_anuidade <- data.frame(tabuas$Idade,tabuas$BR.EMSmt.v.2010.m) 
+# Como os ultimos valores foram NA vamos excluir as ultimas linhas (pegar até a linha 114)
+tabua_anuidade <- tabua_anuidade[1:114,]
+```
+
+Agora é com vocês, calculem as anuidades e armazenem na propria tábua, sugiro que já programem com o fracionamento de Woolhouse (taxa de 5\%)
+
+```{r}
+tabua_anuidade$ax <- 0 # Criando coluna que vai receber as anuidades
+
+names(tabua_anuidade) <- c("Idade","BR-EMS-2010-M","anuidade")
+
+kable(head(tabua_anuidade))
+```
+
+Depois de preenchida a coluna de anuidades salvem o resultado dessa nova tábua com o comando
+
+```{r}
+# write.csv(tabua_anuidade,"tabua_anuidade.csv")
+```
+
+**Dica:** Lembre-se que a pessoa de idade 0 está armazenada na coluna 1 (no R) isso deve ser considerado!
+
+<font size="4"> **NÃO ESQUEÇA DE SALVAR ESSAS ANUIDADES CALCULADAS PARA AS PRÓXIMAS TAREFAS** </font>
+
+------------------------------------
+
+Tarefa 4 {data-navmenu="Tarefas"}
+=====================================
+<font size="5"> **Tarefa 4: Provisão Matemática de Benefícios Concedidos - Parte 2** </font>
+
+### <font size="4"> **PMBC: Provisão Matemática do Benefício Concedido** </font> 
+
+É o valor atual dos compromissos relativo aos assistidos e pensionistas, os quais estão em gozo de benefício pelo plano. É calculada para os benefícios estruturados com base no regime financeiro de capitalização e para o grupo de servidores que já estão em gozo desse benefício, o cálculo se dá pela seguinte formula:
+
+$$ PMCB = \sum_{i=1}^{n} 13 . Beneficio . \ddot{a}^{12}_{xi}$$
+
+Essa tarefa (4) é a **segunda etapa** do cálculo do PMBC, vamos nessa semana armazenar as anuidades calculadas no banco de dados dos servidores **inativos**, para isso sugiro que criem uma nova coluna na tábua para receber essa anuidade, e carreguem a tábua com as anuidades da tarefa 3, desta forma vocês não vão precisar calcular as anuidades novamente, apenas consulta-lás.
+
+```{r}
+tabua <- read.csv("tabua_anuidade.csv") # Tábua com as anuidades calculadas
+```
+
+
+```{r}
+inativos$ax_12 <- 0 #coluna para receber as anuidades
+inativos$PMBC <- 0 # coluna para receber o PMBC
+```
+
+Nesta tarefa vocês vão em um primeio momento preencher as anuidades de acordo com a idade do beneficiário, caso seja uma pensão (idade do aposentado `NA`) a idade deve ser do conjuje observe como o algorítimo deve funcionar no exemplo abaixo.
+
+### Exemplo {data-height=800}
+![Exemplo](IM1.png)
+
+
+### {data-height=800}
+
+Em seguida deverão preencher a coluna do PMBC utilizando a equação $PMCB = \sum_{i=1}^{n} 13 . Beneficio . \ddot{a}^{12}_{xi}$
+
+**Sugestão:** Calcule o PMBC de cada indivíduo e armazene na coluna criada e posteriormente some todos os PMBC
+
+O resultado da tarefa é a soma de todos os PMBC indivíduais e podem ser apresentados por sexo ou por situação (Aposentado/Pensionistas) de acordo com a preferência de vocês. Vou deixar uma sugestão de tabela abaixo:
+
+**Tabela: PMBC**
+
+|              | Feminino | Masculino |
+|--------------|----------|-----------|
+| Aposentados  |          |           |
+| Pensionistas |          |           |
+
+O PMBC Total calculado foi de: ___________
+
+
+------------------------------------
+
+Tarefa 5 {data-navmenu="Tarefas"}
+=====================================
+
+<font size="5"> **Tarefa 5: Provisão Matemática de Benefícios à Conceder - Parte 1** </font>
+
+### <font size="4"> **PMBàC: Provisão Matemática de Benefícios à Conceder** </font> 
+
+
+A provisão matemática de benefícios a conceder (PMBAC) é calculada para o grupo de servidores
+que ainda não estão em gozo desse benefício, ou seja, servidores **ativos**, o cálculo se dá pela seguinte formula:
+
+
+$$
+\sum_{i=1}^{j}13 \cdot Beneficio \cdot _k|\ddot{a}^{12}_{xi} - 13 \cdot \%Salario \cdot \ddot{a}^{12}_{x:\bar{k|}}
+$$
+
+  No entanto, sabemos que para os servidores ativos o produto atuarial "aposentadoria" pode ser dividido em duas etapas. Antes de aposentar o beneficiário é responsável pelo pagamento do prêmio e a após atingir a idade de se aposentar ele passa a receber o benefício, sendo assim, podemos dividir a formula acima em duas etapas, são elas:\
+
+1 - Despesa com o beneficiário (pagamento do benefício da aposentadoria)\
+
+2 - Receita com o beneficiário (recebimento dos prêmios)\
+
+Nesta tarefa vamos encontrar o valor de **k**, ou seja, o tempo que falta para cada servido ativo se aposentar, utilizaremos as regras definidas na tarefa 2, são elas
+
+    - Mulheres: 60 anos ou 30 anos de contribuição
+    
+    - Homens: 65 anos ou 35 anos de contribuição
+    
+Para esta tarefa vamos assumir que todos os nossos servidores vão contribuir durante todo o tempo,
+veja um exemplo:
+
+
+### Exemplo {data-height=800}
+
+![Exemplo](t51.png)
+
+### {data-height=800}
+
+
+
+***Dicas***:
+
+1. Separe os dados por sexo
+
+2. Crie 2 vetores, uma para armazenar o tempo que falta para aposentar pode idade e o outro por tempo de contribuição
+
+3. O k será o menor valor desses depois vetores.
+
+
+------------------------------------
+
+Tarefa 6 {data-navmenu="Tarefas"}
+=====================================
+<font size="5"> **Tarefa 6: Provisão Matemática de Benefícios à Conceder - Parte 2** </font>
+
+### <font size="4"> **PMBàC: Provisão Matemática de Benefícios à Conceder - DESPESAS** </font> 
+
+
+A provisão matemática de benefícios a conceder (PMBAC) é calculada para o grupo de servidores
+que ainda não estão em gozo desse benefício, ou seja, servidores **ativos**, o cálculo se dá pela seguinte formula:
+
+
+$$
+\sum_{i=1}^{j}13 \cdot Beneficio \cdot _k|\ddot{a}^{12}_{xi} - 13 \cdot \%Salario \cdot \ddot{a}^{12}_{x:\bar{k|}}
+$$
+ 
+  No entanto, sabemos que para os servidores ativos o produto atuarial "aposentadoria" pode ser dividido em duas etapas. Antes de aposentar o beneficiário é responsável pelo pagamento do prêmio e a após atingir a idade de se aposentar ele passa a receber o benefício, sendo assim, podemos dividir a formula acima em duas etapas, são elas:\
+
+1 - Despesa com o beneficiário (pagamento do benefício da aposentadoria)\
+
+2 - Receita com o beneficiário (recebimento dos prêmios)\
+
+
+### Despesas - Parte 2: Cálculo das anuidades e das despesas para ambos os sexos
+
+Nessa parte do trabalho faremos o cálculo da despesa com o beneficiário dada por:
+
+$$
+\sum_{i=1}^{j}13 \cdot Beneficio \cdot _k|\ddot{a}^{12}_{xi}
+$$
+
+No nosso trabalho usaremos o ultimo salário como Benefício.
+
+$$
+\sum_{i=1}^{j}13 \cdot Salario \cdot _k|\ddot{a}^{12}_{xi}
+$$
+
+A despesa é calculada com base no que se espera gastar com cada beneficiário. Para programar essa tarefa vamos utilizar o valor de K calculado na tarefa anterior
+
+Esta tarefa então se resume em calcular as anuidades diferidas por k anos para cada indivíduo.
+
+**Sugestão:** Sempre que terminar uma tarefa salve a tarefa nos seus dados para carregar na seguinte sem precisar rodar novamente, ou use o mesmo script.
+
+### Passo a Passo:
+
+1. Importar bancos de dados
+
+```{r, echo = T}
+ativosf <- read.csv("ativos_fem.csv", row.names = 1)
+ativosf$Sexo_participante <- "F"
+knitr::kable(head(ativosf))
+```
+
+
+```{r}
+ativosm <- read.csv("ativos_mas.csv", row.names = 1)
+knitr::kable(head(ativosm))
+tabuas = read.csv('tabua_anuidade.csv', h = T, sep = ',', dec = '.', row.names=1)
+```
+
+Observem que a tabua carregada já está com as anuidades que calculamos nas tarefas anteriores.
+
+2. Criar a coluna que vai armazenar os resultados das anuidades (pode ser preenchida com um `for`)
+
+3. Lembrem-se que as anuidades são diferidas e são dadas por:
+
+$$
+_k|\ddot{a}^{12}_{xi} = ( \frac{1}{1+i})^{k}*_{k|}p_{xi} * \ddot{a}^{12}_{xi+k}
+$$
+
+
+
+4. As anuidades nesse caso não precisam ser calculadas, apenas consultadas na tábua que fizemos anteriormente na posição $x_i + k$.
+
+5. Calculadas as anuidades basta multiplica-las por $13 \cdot Salario$ para calcular a despesa com PMBaC.
+
+Para o sexo feminino o resultado deve ser próximo a esse:
+```{r, echo=F}
+
+ativosf <- read.csv("ativosfinalfem.csv", row.names=1)
+knitr::kable(head(ativosf))
+
+```
+
+Então a soma das Despesas com PMBAC para o sexo feminino será: ____________
+
+
+Para o sexo masculino o resultado deve ser próximo a esse:
+
+```{r, echo = F}
+ativosm <- read.csv("ativosfinalmas.csv", row.names=1)
+knitr::kable(head(ativosm))
+```
+
+Então a soma das Despesas com PMBAC para o sexo feminino será: _____________
+
+------------------------------------
+
+Tarefa 7 {data-navmenu="Tarefas"}
+=====================================
+<font size="5"> **Tarefa 7: Provisão Matemática de Benefícios à Conceder - Parte 3** </font>
+
+### <font size="4"> **PMBàC: Provisão Matemática de Benefícios à Conceder - RECEITAS** </font> 
+
+
+A provisão matemática de benefícios a conceder (PMBAC) é calculada para o grupo de servidores
+que ainda não estão em gozo desse benefício, ou seja, servidores **ativos**, o cálculo se dá pela seguinte formula:
+
+
+$$
+\sum_{i=1}^{j}13 \cdot Beneficio \cdot _k|\ddot{a}^{12}_{xi} - 13 \cdot \%Salario \cdot \ddot{a}^{12}_{x:\bar{k|}}
+$$
+
+No entanto, sabemos que para os servidores ativos o produto atuarial "aposentadoria" pode ser dividido em duas etapas. Antes de aposentar o beneficiário é responsável pelo pagamento do prêmio e a após atingir a idade de se aposentar ele passa a receber o benefício, sendo assim, podemos dividir a formula acima em duas etapas, são elas:\
+
+1 - Despesa com o beneficiário (pagamento do benefício da aposentadoria)\
+
+2 - Receita com o beneficiário (recebimento dos prêmios)\
+
+
+### RECEITA: Cálculo das anuidades e das receita para ambos os sexos
+
+Nessa parte do trabalho faremos o cálculo da receita com o beneficiário dada por:
+
+$$
+\sum_{i=1}^{j}13 \cdot \% Salário \cdot \ddot{a}^{12}_{xi:k}
+$$
+No nosso trabalho usaremos a contribuição conforme definido pela turma na primeira tarefa, no caso, definido como:
+
+"De acordo com a Emenda Constitucional 103, o salário mínimo de contribuição é o valor do salário mínimo, e o valor máximo é de R$6101,06.
+
+$R\$1.045 (7,5\%)$
+
+$R\$1.045,01 - R\$2.000 (9\%)$
+
+$R\$2.000,01 - R\$3.000 (12\%)$
+
+$R\$ 3.000,01 - R\$ 6.101,06 (14\%)$
+
+
+Desta forma vamos criar uma coluna no nosso banco de dados com a contribuição de cada beneficiário 
+
+Para o sexo feminino o resultado deve ficar proximo a este:
+
+```{r, echo=F}
+
+ativosfp <- read.csv("ativosfp.csv", row.names=1)
+ativosfp$Sexo_participante <- "F"
+knitr::kable(head(ativosfp))
+
+```
+
+Queremos calcular
+
+$$
+\sum_{i=1}^{j}13 \cdot Taxa \cdot Salário \cdot \ddot{a}^{12}_{xi:k}
+$$
+Vamos então programar a anunidade temporária
+
+1. Carregar a tábua
+
+```{r}
+tabuas = read.csv('tabua_anuidade.csv', sep = ',', dec = '.', h = T, row.names=1)
+
+```
+
+Observem que a tabua carregada já está com as anuidades que calculamos nas tarefas anteriores.
+
+2. Criar a coluna que vai armazenar os resultados das anuidades (pode ser preenchida com um `for`)
+
+3. Lembrem-se que as anuidades temporárias podem ser calculadas usando a relação
+
+$$
+\ddot{a}^{12}_{xi:k} = \ddot{a}^{12}_{xi} - \ddot{a}^{12}_{xi+k}
+$$
+
+
+
+4. As anuidades nesse caso não precisam ser calculadas, apenas consultadas na tábua que fizemos anteriormente na posição $x_i + k$ e na posição $x_i$
+
+5. Confira se as anuidades foram preenchidas corretamente, se sim basta operar as colunas para criar o PMBAC_DESPESA
+
+$$
+\sum_{i=1}^{j}13 \cdot Taxa \% Salário \cdot (\ddot{a}^{12}_{xi} - \ddot{a}^{12}_{xi+k})
+$$
+
+- resultados para o sexo feminino:
+```{r, echo=F}
+ativosf <- read.csv("ativosfinalfem.csv", row.names=1)
+ativosf$Sexo_participante <- "F"
+knitr::kable(head(ativosf))
+```
+
+- resultados para o sexo masculino:
+
+
+```{r, echo=F}
+ativosm <- read.csv("ativosfinalmas.csv", row.names=1)
+knitr::kable(head(ativosm))
+```
+
+
+$$
+PMBAC_{DESPESA} - PMBAC_{RECEITA}
+$$
+
+
+
+```{r}
+PMBAC_m <- sum(ativosm$PMBAC_Desp)-sum(ativosm$PMBAC_Rec)
+print(PMBAC_m)
+PMBAC_f <- sum(ativosf$PMBAC_Desp)-sum(ativosf$PMBAC_Rec)
+print(PMBAC_f)
+
+```
+Devido ao número excessivo de fatores, sera aceito erro de até 5/% dos valores acima 
+
+------------------------------------
+
+
+# Instruções para o relatório
+
+
+O relatório final deve conter obrigatoriamente:
+
+- Introdução
+- Resumo Estatístico 
+    - Resultado da Tarefa 1
+- Bases Técnicas
+    - Resultado da Tarefa 2 de todos os colegas
+- Provisão Matemática de Benefícios Concedidos
+    - Resultados das Tarefas 3 e 4
+- Provisão Matemática de Benefícios à Conceder.
+    - Resultados das tarefas 4, 5 e 6
+- Considerações Finais
+- Referências
+
+
+Vocês vão encontrar um modelo do relatório na pasta do drive
+
+Link do Drive: https://drive.google.com/drive/u/0/folders/12Erb-zyOJ0MOVyvx_foyTUIFJ9KcUeFU
+
+Aqueles que tem familiaridade com o LaTeX no link abaixo tem um template legal do overleaf para usarem, não edite o template **FAÇA UMA CÓPIA**. (Template/LaTeX)[https://www.overleaf.com/read/zmkjkjsmdjwh]
+
+
+------------------------------------
+
+Funções Atuariais {data-navmenu="Funções Atuariais"}
+=====================================
+
+Nessa aba vocês encontraram a formula de calculo para algumas funções atuariais (as funções ainda estão em desenvolvimento, nem todas foram completamente testadas).
+
+Link com o csv das tábuas de via: [tabuas] (https://drive.google.com/file/d/1ENc1tIuW-3e1DnPVOp0bsMEi5tZsfKkU/view?usp=sharing)
+
+Apos o dowload selecione o diretório do *R* (`Ctrl + Shift + H`)
+
+```{r}
+qx = read.csv('tabuas_de_vida.csv', h = T, sep = ';', dec = ',')
+qx[is.na(qx)] <- 0 #trocar os NA por 0
+
+```
+
+Agradecimento aos amigos  **Matheus**,  **Walef** e **Danilo** pela ajuda com esta plataforma
+
+------------------------------------
+
+Seguro Vitalício {data-navmenu="Funções Atuariais"}
+=====================================
+
+<font size="5"> **Seguro Vitalício** </font>
+
+- Caso Discreto
+$$
+A_x = \sum_{t=0}^{\omega-x}\left (\frac{1}{1+i}  \right )^{t+1} \ _tp_x \ q_{x+t}
+$$
+
+- Caso Contínuo
+
+$$
+\bar{A}_x  = \int_{0}^{\infty} e^{-\delta t} f_{T_x}(t)dt
+$$
+- Comutação
+
+$$
+A_x = \frac{M_x}{D_x}
+$$
+
+
+```{r}
+# SEGURO DE VIDA VITALICIO ------------------------------------------------
+A = function(tabua = 'AT_49_F', idade, juros){
+  qx = qx[, tabua]
+  v = (1+juros)**-1
+  qx = qx[(idade+1):length(qx)]
+  px = c(1,1-qx[1:(length(qx)-1)])
+  t = c(0:(length(qx)-1))
+  pxx = cumprod(px)
+  return(
+    sum(v**(t+1)*pxx*qx)
+  )
+}
+```
+
+------------------------------------
+
+Seguro Vitalício Diferido {data-navmenu="Funções Atuariais"}
+=====================================
+
+<font size="5"> **Seguro Vitalício Diferido** </font>
+
+- Caso Discreto
+
+$$
+_{m|}A_x = \sum_{t=m}^{w-x-m}\left (\frac{1}{1+i}  \right )^{t+1} \ _tp_x \ q_{x+t} = v^m \ _mp_x A_{x+m}
+$$
+
+- Caso Contínuo
+
+$$
+_{m|}\bar{A}_x = \int_{m}^{\infty} e^{-\delta t} f_{T_x}(t)dt
+$$
+
+- Comutação
+
+$$
+_{m|}A_x = \frac{M_{x+m}}{D_x}
+$$
+
+
+```{r}
+#SEGURO DE VIDA VITALICIO DIFERIDO
+A_dif = function(tabua = 'AT_49_F', idade, juros, dif){
+  qx = qx[, tabua]
+  v = (1+juros)**-1
+  qx = qx[(idade+1):length(qx)]
+  px = c(1,1-qx[1:(length(qx)-1)])
+  t = c(0:(length(qx)-1))
+  dotal = v**(dif)*prod(px[1:dif])
+  pxx = cumprod(px)
+  return(
+    sum(v**(t+1)*pxx*qx)*dotal
+  )
+}
+```
+
+------------------------------------
+
+Seguro Temporário {data-navmenu="Funções Atuariais"}
+=====================================
+
+<font size="5"> **Seguro Temporário** </font>
+
+- Caso Discreto
+
+$$
+A_{x^1:\bar{n|}} = \sum_{t=0}^{n-1}\left (\frac{1}{1+i}  \right )^{t+1} \ _tp_x \ q_{x+t}
+$$
+
+
+- Caso Contínuo
+
+$$
+\bar{A}_{x^1:\bar{n|}} = \int_{0}^{n} e^{-\delta t} f_{T_x}(t)dt
+$$
+
+- Comutação
+
+$$
+A_{x^1:\bar{n|}} = \frac{M_x-M_{x+n}}{D_x}
+$$
+
+
+```{r}
+# SEGURO DE VIDA TEMPORARIO -----------------------------------------------
+A_temp = function(tabua = 'AT_49_F', idade, juros, n){
+  qx = qx[, tabua]
+  v = (1+juros)**-1
+  qx = as.numeric(na.exclude(qx[(idade+1):(idade+n)]))
+  px = c(1,1-qx[1:(n-1)])
+  t = c(0:(n-1))
+  pxx = cumprod(px)
+  return(
+    sum(v**(t+1)*pxx*qx)
+  )
+  
+}
+```
+
+------------------------------------
+
+Seguro Temporário e Diferido {data-navmenu="Funções Atuariais"}
+=====================================
+
+<font size="5"> **Seguro Temporário e Diferido** </font>
+
+- Caso Discreto
+
+$$
+_{m|}A_{x^1:\bar{n|}} = \sum_{t=m}^{m+n-1}\left (\frac{1}{1+i}  \right )^{t+1} \ _tp_x \ q_{x+t} = \left (\frac{1}{1+i}  \right )^{m} \ _mp_x . A_{x+m^1:\bar{n|}} 
+$$
+
+- Caso Contínuo
+
+$$
+_{m|}\bar{A}_{x^1:\bar{n|}} = \int_{t=m}^{m+n}e^{-\delta t} f_{T_x}(t)dt
+$$
+
+- Comutação
+
+$$
+_{m|}A_{x^1:\bar{n|}} - \frac{M_{x+m}-M_{x+m+n}}{D_{x}}
+$$
+
+
+
+```{r}
+# SEGURO DE VIDA TEMPORARIO E DIFERIDO ------------------------------------
+A_temp_dif = function(tabua = 'AT_49_F', idade, juros, n, dif){
+  qx = qx[, tabua]
+  v = (1+juros)**-1
+  qx = as.numeric(na.exclude(qx[(idade+1):(idade+n+dif)]))
+  px = c(1,1-qx[1:(n+dif-1)])
+  t = c(0:(n-1))
+  dotal = v**(dif)*prod(px[1:dif])
+  pxx = cumprod(px[(dif+1):(length(px))])
+  
+  return(
+    sum(v**(t+1)*pxx*qx[(dif+1):(dif+n)])*dotal
+  )
+  
+}
+```
+
+------------------------------------
+
+Dotal Puro {data-navmenu="Funções Atuariais"}
+=====================================
+
+<font size="5"> **Seguro Dotal Puro** </font>
+
+- Caso Discreto
+
+$$
+A_{x:\bar{n|^1}} = \left (\frac{1}{1+i}  \right )^{n} \ _np_x 
+$$
+
+- Comutação
+
+$$
+A_{x:\bar{n|^1}} = \frac{D_{x+n}}{D_x}
+$$
+
+
+
+
+```{r}
+# SEGURO DE VIDA DOTAL PURO -----------------------------------------------
+A_dotal = function(tabua = 'AT_49_F', idade, juros, n){
+  qx = qx[, tabua]
+  v = (1+juros)**-1
+  qx[is.na(qx)] = 1
+  px = 1-qx
+  dotal = (v^n)*prod(px[(idade+1):(idade+n)])
+  return(dotal)
+}
+```
+
+------------------------------------
+
+Dotal Misto {data-navmenu="Funções Atuariais"}
+=====================================
+
+<font size="5"> **Seguro Misto** </font>
+
+- Discreto
+
+$$
+A_{x:\bar{n|}} = A_{x:\bar{n|^1}} + A_{x^1:\bar{n|}}
+$$
+
+- Comutação
+
+$$
+A_{x:\bar{n|}} = \frac{D_{x+n} + M_{x} - M_{x+m}}{D_x}
+$$
+
+
+```{r}
+# SEGURO DE VIDA DOTAL MISTO ----------------------------------------------
+A_dotal_misto = function(tabua = 'AT_49_F', idade, juros, n){
+  puro = A_dotal(tabua = tabua, idade = idade, juros = juros, n = n)
+  temp = A_temp(tabua = tabua, idade = idade, juros = juros, n = n)
+  return(puro + temp)
+}
+```
+
+------------------------------------
+
+Anuidade Antecipada Vitalícia {data-navmenu="Funções Atuariais"}
+=====================================
+
+<font size="5"> **Anuidade Antecipada Vitalícia** </font>
+
+- Caso Discreto
+
+$$
+\ddot{a}_x = \sum_{t=0}^{w-x}\left ( \frac{1}{1+i} \right )^t \ _tp_x
+$$
+
+- Caso Contínuo
+
+$$
+\bar{a}_x = \int_{t=0}^{\infty}e^{\delta t} \ _tp_x \ dx
+$$
+
+- Comutação
+
+$$
+\ddot{a}_x = \frac{N_x}{D_x}
+$$
+
+- Anuidade Fracionada (Formula de Woolhouse)
+
+$$
+\ddot{a}_x^{(m)} \approx \ddot{a}_x - \frac{m-1}{2m}
+$$
+
+
+```{r}
+# ANUIDADE ANTECIPADA VITALICIA  ------------------------------------------------------
+a_ant_vit = function(tabua = 'AT_49_F', idade, juros){
+  qx = qx[, tabua]
+  qx[is.na(qx)] = 1
+  px = 1-qx
+  pxx = c(1, cumprod(px[(idade+1):length(px)]))
+  v = (1+juros)**-1
+  t <- (0:(length(pxx)-1))
+  return(sum(v^(t)*pxx))
+}
+```
+
+------------------------------------
+
+Anuidade Antecipada Temporária {data-navmenu="Funções Atuariais"}
+=====================================
+
+<font size="5"> **Anuidade Antecipada Temporária** </font>
+
+- Caso Discreto
+
+$$
+\ddot{a}_{x:\bar{n|}} = \sum_{t=0}^{n}\left ( \frac{1}{1+i} \right )^t \ _tp_x
+$$
+
+- Caso Contínuo
+
+$$
+\bar{a}_{x:\bar{n|}} = \int_{t=0}^{n}e^{\delta t} \ _tp_x \ dx
+$$
+
+- Caso Discreto
+
+$$
+\ddot{a}_{x:\bar{n|}} = \frac{N_x-N_{x+n}}{D_x}
+$$
+
+- Anuidade Fracionada (Formula de Woolhouse)
+
+$$
+\ddot{a}_{x:\bar{n|}}^{(m)} \approx \ddot{a}_{x:\bar{n|}} - \frac{m-1}{2m}(1-_nE_x)
+$$
+
+
+```{r}
+# ANUIDADE ANTECIPADA TEMPORARIA ------------------------------------------
+a_ant_temp = function(tabua = 'AT_49_F', idade, juros, n){
+  qx = qx[, tabua]
+  qx[is.na(qx)] = 1
+  px = 1-qx
+  pxx = c(1, cumprod(px[(idade+1):(idade+n-1)]))
+  v = (1+juros)**-1
+  t <- (0:(n-1))
+  return(sum(v^(t)*pxx))
+}
+```
+
+
+------------------------------------
+
+Anuidade Antecipada Vitalícia e Diferida {data-navmenu="Funções Atuariais"}
+=====================================
+
+<font size="5"> **Anuidade Antecipada Vitalícia e Diferida** </font>
+
+- Caso Discreto
+
+$$
+_{m|} \ddot{a}_x =\left ( \frac{1}{1+i} \right )^m \  _mp_x \sum_{t=0}^{w-x-m-1}\left ( \frac{1}{1+i} \right )^t \ _tp_{x+m}
+$$
+
+- Comutação
+
+$$
+_{m|} \ddot{a}_x = \frac{N_{x+m}}{D_x}
+$$
+
+
+```{r}
+# ANUIDADE ANTECIPADA VITALICIA E DIFERIDA --------------------------------
+a_ant_vit_dif = function(tabua = 'AT_49_F', idade, juros, dif){
+  qx = qx[, tabua]
+  v = (1+juros)**-1
+  qx[is.na(qx)] = 1
+  px = 1-qx
+  dotal = (v^dif)*prod(px[(idade+1):(idade+dif)])
+  pxx = c(1, cumprod(px[(idade+dif+1):(length(px)-1)]))
+  t = (0:(length(pxx)-1))
+  return(dotal*sum(v**t * pxx))
+}
+```
+
+
+------------------------------------
+
+Anuidade Antecipada Temporária e Diferida {data-navmenu="Funções Atuariais"}
+=====================================
+
+<font size="5"> **Anuidade Antecipada Temporária e Diferida** </font>
+
+
+- Caso Discreto
+
+$$
+_{m|} \ddot{a}_{x:\bar{n|}} = \left ( \frac{1}{1+i} \right )^m \ _mp_x \sum_{t=0}^{n+m-1}\left ( \frac{1}{1+i} \right )^t \ _tp_{x+m}
+$$
+
+- Comutação
+
+$$
+_{m|} \ddot{a}_{x:\bar{n|}} = \frac{N_{x+m}-N_{x+m+n}}{D_x}
+$$
+
+
+- Anuidade Fracionada (Formula de Woolhouse)
+
+$$
+_{m|} \ddot{a}_{x:\bar{n|}}^{(m)} \approx _{m|} \ddot{a}_x  - \frac{m-1}{2m}(_mE_x-_{n+m}E_x)
+$$
+
+
+```{r}
+# ANUIDADE ANTECIPADA DIFERIDA E TEMPORARIA -------------------------------
+a_ant_temp_dif = function(tabua = 'AT_49_F', idade, juros, n, dif){
+  qx = qx[, tabua]
+  v = (1+juros)**-1
+  qx[is.na(qx)] = 1
+  px = 1-qx
+  dotal = (v^dif)*prod(px[(idade+1):(idade+dif)])
+  pxx = c(1, cumprod(px[(idade+dif+1):(idade+dif+n-1)]))
+  t = (0:(length(pxx)-1))
+  return(dotal*sum(v**t * pxx))
+}
+```
+
+------------------------------------
+
+Anuidade Postecipada e Vitalícia {data-navmenu="Funções Atuariais"}
+=====================================
+
+<font size="5"> **Anuidade  Postecipada e Vitalícia** </font>
+
+- Caso Discreto
+
+$$
+a_x = \sum_{t=1}^{w-x}\left ( \frac{1}{1+i} \right )^t \ _tp_x
+$$
+
+- Comutação
+
+$$
+a_x = \frac{N_{x+1}}{D_x}
+$$
+
+
+- Caso Contínuo
+
+$$
+\bar{a}_x = \int_{t=0}^{\infty}e^{\delta t} \ _tp_x \ dx
+$$
+- Anuidade Fracionada (Formula de Woolhouse)
+
+$$
+{a}_x^{(m)} \approx  {a}_x + \frac{m-1}{2m}
+$$
+
+
+
+```{r}
+# ANUIDADE POSTECIPADA VITALICIA ------------------------------------------
+a_post_vit = function(tabua = 'AT_49_F', idade, juros){
+  qx = qx[, tabua]
+  qx[is.na(qx)] = 1
+  px = 1-qx
+  pxx = c(cumprod(px[(idade+1):length(px)]))
+  v = (1+juros)**-1
+  t <- (1:(length(pxx)))
+  return(sum(v^(t)*pxx))
+}
+```
+
+------------------------------------
+
+Anuidade Postecipada, Vitalícia e Diferida {data-navmenu="Funções Atuariais"}
+=====================================
+
+<font size="5"> **Anuidade  Postecipada, Vitalícia e Diferida** </font>
+
+- Caso Discreto
+
+$$
+_{m|} a_x =\left ( \frac{1}{1+i} \right )^m \  _mp_x \sum_{t=1}^{w-x-m}\left ( \frac{1}{1+i} \right )^t \ _tp_{x+m}
+$$
+
+
+- Comutação
+
+$$
+_{m|} a_x = \frac{N_{x+m+1}}{D_x}
+$$
+
+
+
+```{r}
+# ANUIDADE POSTECIPADA VITALICIA E DIFERIDA -------------------------------
+a_post_vit_dif = function(tabua = 'AT_49_F', idade, juros, dif){
+  qx = qx[, tabua]
+  qx[is.na(qx)] = 1
+  v = (1+juros)**-1
+  px = 1-qx
+  dotal = v**dif * prod(px[(idade+1):(idade+dif)])
+  pxx = c(cumprod(px[(idade+1+dif):length(px)]))
+  t <- (1:(length(pxx)))
+  return(dotal * sum(v^(t)*pxx))
+}
+```
+
+
+------------------------------------
+
+Anuidade Postecipada Temporária {data-navmenu="Funções Atuariais"}
+=====================================
+
+<font size="5"> **Anuidade  Postecipada Temporária** </font>
+
+- Caso Discreto
+
+$$
+a_{x:\bar{n|}} = \sum_{t=1}^{n}\left ( \frac{1}{1+i} \right )^t \ _tp_x
+$$
+
+- Comutação
+
+$$
+a_{x:\bar{n|}} = \frac{N_{x+1} - N_{x+n+1}}{D_x}
+$$
+
+- Anuidade Fracionada (Formula de Woolhouse)
+
+$$
+{a}_{x:\bar{n|}}^{(m)} \approx  a_{x:\bar{n|}} + \frac{m-1}{2m}(1-_nE_x)
+$$
+
+
+
+```{r}
+# ANUIDADE POSTECIPADA TEMPORARIA -----------------------------------------
+a_post_temp = function(tabua = 'AT_49_F', idade, juros, n){
+  qx = qx[, tabua]
+  qx[is.na(qx)] = 1
+  v = (1+juros)**-1
+  px = 1-qx
+  pxx = cumprod(px[(idade+1):(idade+n)])
+  t <- (1:n)
+  return(sum(v^(t)*pxx))
+}
+```
+
+
+------------------------------------
+
+Anuidade Postecipada, Temporária e Diferida {data-navmenu="Funções Atuariais"}
+=====================================
+
+<font size="5"> **Anuidade  Postecipada, Temporária e Diferida** </font>
+
+- Caso Discreto
+
+$$
+_{m|} a_{x:\bar{n|}} = \left ( \frac{1}{1+i} \right )^t \ _tp_x \sum_{t=1}^{n+m}\left ( \frac{1}{1+i} \right )^t \ _tp_{x+m}
+$$
+
+- Comutação
+
+$$
+_{m|} a_{x:\bar{n|}} = \frac{N_{x+m+1} - N_{x+m+n+1}}{D_x}
+$$
+- Anuidade Fracionada (Formula de Woolhouse)
+
+$$
+_{m|}{a}_{x:\bar{n|}}^{(m)} \approx _{m|}a_{x:\bar{n|}} + \frac{m-1}{2m}(_mE_x-_{n+m}E_x)
+$$
+
+
+```{r}
+# ANUIDADE POSTECIPADA TEMPORARIA E DIFERIDA ------------------------------
+a_post_temp_dif = function(tabua = 'AT_49_F', idade, juros, n, dif){
+  qx = qx[, tabua]
+  qx[is.na(qx)] = 1
+  v = (1+juros)**-1
+  px = 1-qx
+  dotal = v**dif * prod(px[(idade+1):(idade+dif)])
+  pxx = cumprod(px[(idade+1+dif):(idade+dif+n)])
+  t <- (1:n)
+  return(dotal * sum(v^(t)*pxx))
+}
+```
+
