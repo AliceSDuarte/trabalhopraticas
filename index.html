@@ -2735,7 +2735,7 @@ window.FlexDashboardComponents.push({
 <ul>
 <li>Tarefa 1 (Disponível)</li>
 <li>Tarefa 2 (Disponível)</li>
-<li>Tarefa 3 (Indisponível)</li>
+<li>Tarefa 3 (Disponível)</li>
 <li>Tarefa 4 (Indisponível)</li>
 <li>Tarefa 5 (Indisponível)</li>
 <li>Tarefa 6 (Indisponível)</li>
@@ -3560,346 +3560,68 @@ window.FlexDashboardComponents.push({
 <p>Essa tarefa (3) é a <strong>primeira etapa</strong> do cálculo do PMBC, vamos nessa semana calcular as anuidades e posteriormente armazenar no nosso banco de dados dos servidores <strong>inativos</strong>, para isso sugiro que criem uma nova coluna na tábua para receber essa anuidade, como foi decidido utilizar somente uma tábua para ambos os sexos precisamos preocupar apenas com a idade dos servidores.</p>
 <p>Para calculo das anuidades é importante seguir a tábua e a taxa de juros escolhida pela turma na tarefa anterior (Tarefa 2), importa-la e cortar a tábua. Vou deixar abaixo uma sugestão dos primeiros passos.</p>
 <p><strong>OBJETIVO:</strong> programar a anuidade vitalícia, antecipada e com fracionamento mensal para todas as idades lembrando que:</p>
-<p><span class="math display">\[\ddot{a}_x^{(12)} = \ddot{a}_x - \frac{11}{24} = \left (\sum_{i=0}^{\omega-x}v^t_tp_x   \right ) - \frac{11}{24}\]</span> 1. Fixar o diretório (<code>Ctrl + Shitf + H</code>) e importar as tábua</p>
-<div class="knitr-options" data-fig-width="576" data-fig-height="460">
-
-</div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>tabuas =<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;tabuas_de_vida.csv&#39;</span>, <span class="dt">h =</span> T, <span class="dt">sep =</span> <span class="st">&#39;;&#39;</span>, <span class="dt">dec =</span> <span class="st">&#39;,&#39;</span>)</span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="kw">kable</span>(<span class="kw">head</span>(tabuas))</span></code></pre></div>
-<table>
-<colgroup>
-<col width="1%"></col>
-<col width="4%"></col>
-<col width="5%"></col>
-<col width="5%"></col>
-<col width="3%"></col>
-<col width="2%"></col>
-<col width="2%"></col>
-<col width="2%"></col>
-<col width="4%"></col>
-<col width="3%"></col>
-<col width="3%"></col>
-<col width="3%"></col>
-<col width="3%"></col>
-<col width="3%"></col>
-<col width="1%"></col>
-<col width="1%"></col>
-<col width="1%"></col>
-<col width="4%"></col>
-<col width="4%"></col>
-<col width="4%"></col>
-<col width="4%"></col>
-<col width="2%"></col>
-<col width="2%"></col>
-<col width="1%"></col>
-<col width="2%"></col>
-<col width="2%"></col>
-<col width="2%"></col>
-<col width="2%"></col>
-<col width="2%"></col>
-<col width="2%"></col>
-<col width="3%"></col>
-<col width="1%"></col>
-</colgroup>
-<thead>
-<tr class="header">
-<th align="right">Idade</th>
-<th align="right">AMERICAN_EXPERIENCE</th>
-<th align="right">AT2000_.Suavizada.10.._FEM</th>
-<th align="right">AT2000_.Suavizada.10.._MAS</th>
-<th align="right">AT.2000_FEMALE</th>
-<th align="right">AT.2000_MALE</th>
-<th align="right">AT.49_FEMALE</th>
-<th align="right">AT.49_MALE</th>
-<th align="right">AT.83_FEMALE_.IAM.</th>
-<th align="right">AT.83_MALE_.IAM.</th>
-<th align="right">BR.EMSmt.v.2010.f</th>
-<th align="right">BR.EMSmt.v.2010.m</th>
-<th align="right">BR.EMSsb.v.2010.f</th>
-<th align="right">BR.EMSsb.v.2010.m</th>
-<th align="right">CSG.60</th>
-<th align="right">CSO.41</th>
-<th align="right">CSO.58</th>
-<th align="right">CSO58.FEM.AGE_LAST</th>
-<th align="right">CSO58.FEM.AGE_NEAREST</th>
-<th align="right">CSO58.MAS.AGE_LAST</th>
-<th align="right">CSO58.MAS.AGE_NEAREST</th>
-<th align="right">CSO58_FEMALE</th>
-<th align="right">CSO58_MALE</th>
-<th align="right">CSO80</th>
-<th align="right">GAM.71_FEMALE</th>
-<th align="right">GAM.71_MALE</th>
-<th align="right">IBGE_2006</th>
-<th align="right">IBGE_2007</th>
-<th align="right">IBGE_2008</th>
-<th align="right">IBGE_2009</th>
-<th align="right">GRUPAL_AMERICANA</th>
-<th align="right">HUNTERS</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">0</td>
-<td align="right">0.15470</td>
-<td align="right">0.001615</td>
-<td align="right">0.002080</td>
-<td align="right">0.001794</td>
-<td align="right">0.002311</td>
-<td align="right">0.003210</td>
-<td align="right">0.004040</td>
-<td align="right">0.001835</td>
-<td align="right">0.002690</td>
-<td align="right">0.00128</td>
-<td align="right">0.00274</td>
-<td align="right">0.00038</td>
-<td align="right">0.00200</td>
-<td align="right">0.00832</td>
-<td align="right">0.02258</td>
-<td align="right">0.00708</td>
-<td align="right">0.003942</td>
-<td align="right">0.00620</td>
-<td align="right">0.004430</td>
-<td align="right">0.00708</td>
-<td align="right">0.00548</td>
-<td align="right">0.00633</td>
-<td align="right">0.00418</td>
-<td align="right">0.002219</td>
-<td align="right">0.003255</td>
-<td align="right">0.024891</td>
-<td align="right">0.024036</td>
-<td align="right">0.023295</td>
-<td align="right">0.022467</td>
-<td align="right">0.462</td>
-<td align="right">0.00710</td>
-</tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">0.06349</td>
-<td align="right">0.000680</td>
-<td align="right">0.000815</td>
-<td align="right">0.000755</td>
-<td align="right">0.000906</td>
-<td align="right">0.001360</td>
-<td align="right">0.001580</td>
-<td align="right">0.000778</td>
-<td align="right">0.001053</td>
-<td align="right">0.00046</td>
-<td align="right">0.00095</td>
-<td align="right">0.00038</td>
-<td align="right">0.00069</td>
-<td align="right">0.00207</td>
-<td align="right">0.00577</td>
-<td align="right">0.00176</td>
-<td align="right">0.001540</td>
-<td align="right">0.00167</td>
-<td align="right">0.001640</td>
-<td align="right">0.00176</td>
-<td align="right">0.00094</td>
-<td align="right">0.00100</td>
-<td align="right">0.00107</td>
-<td align="right">0.000940</td>
-<td align="right">0.001274</td>
-<td align="right">0.002292</td>
-<td align="right">0.002182</td>
-<td align="right">0.002291</td>
-<td align="right">0.002152</td>
-<td align="right">0.449</td>
-<td align="right">0.00687</td>
-</tr>
-<tr class="odd">
-<td align="right">2</td>
-<td align="right">0.03550</td>
-<td align="right">0.000353</td>
-<td align="right">0.000454</td>
-<td align="right">0.000392</td>
-<td align="right">0.000504</td>
-<td align="right">0.000703</td>
-<td align="right">0.000887</td>
-<td align="right">0.000402</td>
-<td align="right">0.000591</td>
-<td align="right">0.00025</td>
-<td align="right">0.00048</td>
-<td align="right">0.00020</td>
-<td align="right">0.00035</td>
-<td align="right">0.00179</td>
-<td align="right">0.00414</td>
-<td align="right">0.00152</td>
-<td align="right">0.001380</td>
-<td align="right">0.00141</td>
-<td align="right">0.001490</td>
-<td align="right">0.00152</td>
-<td align="right">0.00067</td>
-<td align="right">0.00075</td>
-<td align="right">0.00099</td>
-<td align="right">0.000486</td>
-<td align="right">0.000715</td>
-<td align="right">0.001255</td>
-<td align="right">0.001198</td>
-<td align="right">0.001188</td>
-<td align="right">0.001132</td>
-<td align="right">0.436</td>
-<td align="right">0.00665</td>
-</tr>
-<tr class="even">
-<td align="right">3</td>
-<td align="right">0.02391</td>
-<td align="right">0.000261</td>
-<td align="right">0.000367</td>
-<td align="right">0.000290</td>
-<td align="right">0.000408</td>
-<td align="right">0.000521</td>
-<td align="right">0.000715</td>
-<td align="right">0.000298</td>
-<td align="right">0.000476</td>
-<td align="right">0.00016</td>
-<td align="right">0.00030</td>
-<td align="right">0.00013</td>
-<td align="right">0.00022</td>
-<td align="right">0.00172</td>
-<td align="right">0.00338</td>
-<td align="right">0.00146</td>
-<td align="right">0.001320</td>
-<td align="right">0.00135</td>
-<td align="right">0.001430</td>
-<td align="right">0.00146</td>
-<td align="right">0.00060</td>
-<td align="right">0.00068</td>
-<td align="right">0.00098</td>
-<td align="right">0.000360</td>
-<td align="right">0.000576</td>
-<td align="right">0.000922</td>
-<td align="right">0.000880</td>
-<td align="right">0.000778</td>
-<td align="right">0.000750</td>
-<td align="right">0.423</td>
-<td align="right">0.00644</td>
-</tr>
-<tr class="odd">
-<td align="right">4</td>
-<td align="right">0.01770</td>
-<td align="right">0.000209</td>
-<td align="right">0.000321</td>
-<td align="right">0.000232</td>
-<td align="right">0.000357</td>
-<td align="right">0.000419</td>
-<td align="right">0.000627</td>
-<td align="right">0.000240</td>
-<td align="right">0.000417</td>
-<td align="right">0.00012</td>
-<td align="right">0.00022</td>
-<td align="right">0.00010</td>
-<td align="right">0.00016</td>
-<td align="right">0.00165</td>
-<td align="right">0.00299</td>
-<td align="right">0.00140</td>
-<td align="right">0.001265</td>
-<td align="right">0.00129</td>
-<td align="right">0.001375</td>
-<td align="right">0.00140</td>
-<td align="right">0.00053</td>
-<td align="right">0.00061</td>
-<td align="right">0.00095</td>
-<td align="right">0.000290</td>
-<td align="right">0.000505</td>
-<td align="right">0.000699</td>
-<td align="right">0.000659</td>
-<td align="right">0.000568</td>
-<td align="right">0.000552</td>
-<td align="right">0.410</td>
-<td align="right">0.00624</td>
-</tr>
-<tr class="even">
-<td align="right">5</td>
-<td align="right">0.01360</td>
-<td align="right">0.000171</td>
-<td align="right">0.000291</td>
-<td align="right">0.000189</td>
-<td align="right">0.000324</td>
-<td align="right">0.000339</td>
-<td align="right">0.000566</td>
-<td align="right">0.000194</td>
-<td align="right">0.000377</td>
-<td align="right">0.00010</td>
-<td align="right">0.00018</td>
-<td align="right">0.00008</td>
-<td align="right">0.00013</td>
-<td align="right">0.00159</td>
-<td align="right">0.00276</td>
-<td align="right">0.00135</td>
-<td align="right">0.001215</td>
-<td align="right">0.00124</td>
-<td align="right">0.001325</td>
-<td align="right">0.00135</td>
-<td align="right">0.00047</td>
-<td align="right">0.00055</td>
-<td align="right">0.00090</td>
-<td align="right">0.000234</td>
-<td align="right">0.000456</td>
-<td align="right">0.000479</td>
-<td align="right">0.000469</td>
-<td align="right">0.000442</td>
-<td align="right">0.000432</td>
-<td align="right">0.397</td>
-<td align="right">0.00605</td>
-</tr>
-</tbody>
-</table>
-<ol start="2" style="list-style-type: decimal">
-<li>Observe que vai ser carregado varias tábuas, queremos apenas a BR-EMSmt 2010 M, podemos recortar apenas a idade e a coluna da tábua da seguinte forma:</li>
+<p><span class="math display">\[\ddot{a}_x^{(12)} = \ddot{a}_x - \frac{11}{24} = \left (\sum_{i=0}^{\omega-x}v^t_tp_x   \right ) - \frac{11}{24}\]</span> 1. Fazer o download da tábua escolhida <a href="https://www.ibge.gov.br/estatisticas/sociais/populacao/9126-tabuas-completas-de-mortalidade.html?=&amp;t=downloads" class="uri">https://www.ibge.gov.br/estatisticas/sociais/populacao/9126-tabuas-completas-de-mortalidade.html?=&amp;t=downloads</a></p>
+<ol style="list-style-type: decimal">
+<li>Fixar o diretório (<code>Ctrl + Shitf + H</code>) e importar a tábua escolhida</li>
 </ol>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># criando um data frame apenas com a tabua que vamos usar</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a>tabua_anuidade &lt;-<span class="st"> </span><span class="kw">data.frame</span>(tabuas<span class="op">$</span>Idade,tabuas<span class="op">$</span>BR.EMSmt.v.<span class="fl">2010.</span>m) </span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="co"># Como os ultimos valores foram NA vamos excluir as ultimas linhas (pegar até a linha 114)</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a>tabua_anuidade &lt;-<span class="st"> </span>tabua_anuidade[<span class="dv">1</span><span class="op">:</span><span class="dv">114</span>,]</span></code></pre></div>
-<p>Agora é com vocês, calculem as anuidades e armazenem na propria tábua, sugiro que já programem com o fracionamento de Woolhouse (taxa de 5%)</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">library</span>(readxl) <span class="co">#pacote para ler xls</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a></span>
+<span id="cb8-3"><a href="#cb8-3"></a>tabua &lt;-<span class="st"> </span><span class="kw">read_xls</span>(<span class="st">&quot;ambos_os_sexos.xls&quot;</span>) <span class="co">#tábual escolhida</span></span></code></pre></div>
+<p>Observe que a tábua veio com todas as informações, como vamos calcular anuidade precisamos apenas do <span class="math inline">\(q_x\)</span> vamos estão filtrar os dados</p>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>tabua_anuidade<span class="op">$</span>ax &lt;-<span class="st"> </span><span class="dv">0</span> <span class="co"># Criando coluna que vai receber as anuidades</span></span>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>tabua &lt;-<span class="st"> </span>tabua[<span class="kw">c</span>(<span class="dv">5</span><span class="op">:</span><span class="dv">44</span>,<span class="dv">61</span><span class="op">:</span><span class="dv">101</span>),<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)] <span class="co">#selecionando as linhas e colunas que importam</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="kw">names</span>(tabua) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Idade&quot;</span>,<span class="st">&quot;qx&quot;</span>) <span class="co">#renomeando</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>tabua<span class="op">$</span>qx &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(tabua<span class="op">$</span>qx)</span>
+<span id="cb9-4"><a href="#cb9-4"></a>tabua<span class="op">$</span>qx &lt;-<span class="st"> </span>tabua<span class="op">$</span>qx<span class="op">/</span><span class="dv">1000</span></span></code></pre></div>
+<p>Agora é com vocês, calculem as anuidades e armazenem na propria tábua, sugiro que já programem com o fracionamento de Woolhouse (taxa de 4,5%)</p>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>tabua<span class="op">$</span>ax &lt;-<span class="st"> </span><span class="dv">0</span> <span class="co"># Criando coluna que vai receber as anuidades</span></span>
 <span id="cb10-2"><a href="#cb10-2"></a></span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="kw">names</span>(tabua_anuidade) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Idade&quot;</span>,<span class="st">&quot;BR-EMS-2010-M&quot;</span>,<span class="st">&quot;anuidade&quot;</span>)</span>
-<span id="cb10-4"><a href="#cb10-4"></a></span>
-<span id="cb10-5"><a href="#cb10-5"></a><span class="kw">kable</span>(<span class="kw">head</span>(tabua_anuidade))</span></code></pre></div>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="kw">kable</span>(<span class="kw">head</span>(tabua))</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
-<th align="right">Idade</th>
-<th align="right">BR-EMS-2010-M</th>
-<th align="right">anuidade</th>
+<th align="left">Idade</th>
+<th align="right">qx</th>
+<th align="right">ax</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">0</td>
-<td align="right">0.00274</td>
+<td align="left">0</td>
+<td align="right">0.0119376</td>
 <td align="right">0</td>
 </tr>
 <tr class="even">
-<td align="right">1</td>
-<td align="right">0.00095</td>
+<td align="left">1</td>
+<td align="right">0.0007962</td>
 <td align="right">0</td>
 </tr>
 <tr class="odd">
-<td align="right">2</td>
-<td align="right">0.00048</td>
+<td align="left">2</td>
+<td align="right">0.0005181</td>
 <td align="right">0</td>
 </tr>
 <tr class="even">
-<td align="right">3</td>
-<td align="right">0.00030</td>
+<td align="left">3</td>
+<td align="right">0.0003971</td>
 <td align="right">0</td>
 </tr>
 <tr class="odd">
-<td align="right">4</td>
-<td align="right">0.00022</td>
+<td align="left">4</td>
+<td align="right">0.0003276</td>
 <td align="right">0</td>
 </tr>
 <tr class="even">
-<td align="right">5</td>
-<td align="right">0.00018</td>
+<td align="left">5</td>
+<td align="right">0.0002827</td>
 <td align="right">0</td>
 </tr>
 </tbody>
@@ -3910,6 +3632,60 @@ window.FlexDashboardComponents.push({
 </div>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># write.csv(tabua_anuidade,&quot;tabua_anuidade.csv&quot;)</span></span></code></pre></div>
 <p><strong>Dica:</strong> Lembre-se que a pessoa de idade 0 está armazenada na coluna 1 (no R) isso deve ser considerado!</p>
+<p>Os resultados para as primeiras idades deve ser proximo a este:</p>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>res &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;tabua_anuidade&quot;</span>)</span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="kw">kable</span>(<span class="kw">head</span>(res))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">X</th>
+<th align="left">Idade</th>
+<th align="right">qx</th>
+<th align="right">ax</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">0</td>
+<td align="right">0.0119376</td>
+<td align="right">21.28702</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">1</td>
+<td align="right">0.0007962</td>
+<td align="right">21.48248</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">2</td>
+<td align="right">0.0005181</td>
+<td align="right">21.44226</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">3</td>
+<td align="right">0.0003971</td>
+<td align="right">21.39410</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="left">4</td>
+<td align="right">0.0003276</td>
+<td align="right">21.34112</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="left">5</td>
+<td align="right">0.0002827</td>
+<td align="right">21.28422</td>
+</tr>
+</tbody>
+</table>
 <p><font size="4"> <strong>NÃO ESQUEÇA DE SALVAR ESSAS ANUIDADES CALCULADAS PARA AS PRÓXIMAS TAREFAS</strong> </font></p>
 <hr />
 </div>
@@ -3924,12 +3700,12 @@ window.FlexDashboardComponents.push({
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>tabua &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;tabua_anuidade.csv&quot;</span>) <span class="co"># Tábua com as anuidades calculadas</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>tabua &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;tabua_anuidade.csv&quot;</span>) <span class="co"># Tábua com as anuidades calculadas</span></span></code></pre></div>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>inativos<span class="op">$</span>ax_<span class="dv">12</span> &lt;-<span class="st"> </span><span class="dv">0</span> <span class="co">#coluna para receber as anuidades</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a>inativos<span class="op">$</span>PMBC &lt;-<span class="st"> </span><span class="dv">0</span> <span class="co"># coluna para receber o PMBC</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>inativos<span class="op">$</span>ax_<span class="dv">12</span> &lt;-<span class="st"> </span><span class="dv">0</span> <span class="co">#coluna para receber as anuidades</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>inativos<span class="op">$</span>PMBC &lt;-<span class="st"> </span><span class="dv">0</span> <span class="co"># coluna para receber o PMBC</span></span></code></pre></div>
 <p>Nesta tarefa vocês vão em um primeio momento preencher as anuidades de acordo com a idade do beneficiário, caso seja uma pensão (idade do aposentado <code>NA</code>) a idade deve ser do conjuje observe como o algorítimo deve funcionar no exemplo abaixo.</p>
 </div>
 <div id="exemplo" class="section level3" data-height="800">
@@ -4047,9 +3823,9 @@ window.FlexDashboardComponents.push({
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>ativosf &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;ativos_fem.csv&quot;</span>, <span class="dt">row.names =</span> <span class="dv">1</span>)</span>
-<span id="cb15-2"><a href="#cb15-2"></a>ativosf<span class="op">$</span>Sexo_participante &lt;-<span class="st"> &quot;F&quot;</span></span>
-<span id="cb15-3"><a href="#cb15-3"></a>knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(ativosf))</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>ativosf &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;ativos_fem.csv&quot;</span>, <span class="dt">row.names =</span> <span class="dv">1</span>)</span>
+<span id="cb16-2"><a href="#cb16-2"></a>ativosf<span class="op">$</span>Sexo_participante &lt;-<span class="st"> &quot;F&quot;</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a>knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(ativosf))</span></code></pre></div>
 <table style="width:100%;">
 <colgroup>
 <col width="2%"></col>
@@ -4171,8 +3947,8 @@ window.FlexDashboardComponents.push({
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>ativosm &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;ativos_mas.csv&quot;</span>, <span class="dt">row.names =</span> <span class="dv">1</span>)</span>
-<span id="cb16-2"><a href="#cb16-2"></a>knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(ativosm))</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>ativosm &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;ativos_mas.csv&quot;</span>, <span class="dt">row.names =</span> <span class="dv">1</span>)</span>
+<span id="cb17-2"><a href="#cb17-2"></a>knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(ativosm))</span></code></pre></div>
 <table style="width:100%;">
 <colgroup>
 <col width="2%"></col>
@@ -4291,7 +4067,7 @@ window.FlexDashboardComponents.push({
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>tabuas =<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;tabua_anuidade.csv&#39;</span>, <span class="dt">h =</span> T, <span class="dt">sep =</span> <span class="st">&#39;,&#39;</span>, <span class="dt">dec =</span> <span class="st">&#39;.&#39;</span>, <span class="dt">row.names=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>tabuas =<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;tabua_anuidade.csv&#39;</span>, <span class="dt">h =</span> T, <span class="dt">sep =</span> <span class="st">&#39;,&#39;</span>, <span class="dt">dec =</span> <span class="st">&#39;.&#39;</span>, <span class="dt">row.names=</span><span class="dv">1</span>)</span></code></pre></div>
 <p>Observem que a tabua carregada já está com as anuidades que calculamos nas tarefas anteriores.</p>
 <ol start="2" style="list-style-type: decimal">
 <li><p>Criar a coluna que vai armazenar os resultados das anuidades (pode ser preenchida com um <code>for</code>)</p></li>
@@ -4769,7 +4545,7 @@ Para o sexo feminino o resultado deve ser próximo a esse:
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>tabuas =<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;tabua_anuidade.csv&#39;</span>, <span class="dt">sep =</span> <span class="st">&#39;,&#39;</span>, <span class="dt">dec =</span> <span class="st">&#39;.&#39;</span>, <span class="dt">h =</span> T, <span class="dt">row.names=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>tabuas =<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;tabua_anuidade.csv&#39;</span>, <span class="dt">sep =</span> <span class="st">&#39;,&#39;</span>, <span class="dt">dec =</span> <span class="st">&#39;.&#39;</span>, <span class="dt">h =</span> T, <span class="dt">row.names=</span><span class="dv">1</span>)</span></code></pre></div>
 <p>Observem que a tabua carregada já está com as anuidades que calculamos nas tarefas anteriores.</p>
 <ol start="2" style="list-style-type: decimal">
 <li><p>Criar a coluna que vai armazenar os resultados das anuidades (pode ser preenchida com um <code>for</code>)</p></li>
@@ -5151,11 +4927,11 @@ PMBAC_{DESPESA} - PMBAC_{RECEITA}
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>PMBAC_m &lt;-<span class="st"> </span><span class="kw">sum</span>(ativosm<span class="op">$</span>PMBAC_Desp)<span class="op">-</span><span class="kw">sum</span>(ativosm<span class="op">$</span>PMBAC_Rec)</span>
-<span id="cb19-2"><a href="#cb19-2"></a><span class="kw">print</span>(PMBAC_m)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>PMBAC_m &lt;-<span class="st"> </span><span class="kw">sum</span>(ativosm<span class="op">$</span>PMBAC_Desp)<span class="op">-</span><span class="kw">sum</span>(ativosm<span class="op">$</span>PMBAC_Rec)</span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="kw">print</span>(PMBAC_m)</span></code></pre></div>
 <pre><code>[1] 100725109572</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>PMBAC_f &lt;-<span class="st"> </span><span class="kw">sum</span>(ativosf<span class="op">$</span>PMBAC_Desp)<span class="op">-</span><span class="kw">sum</span>(ativosf<span class="op">$</span>PMBAC_Rec)</span>
-<span id="cb21-2"><a href="#cb21-2"></a><span class="kw">print</span>(PMBAC_f)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>PMBAC_f &lt;-<span class="st"> </span><span class="kw">sum</span>(ativosf<span class="op">$</span>PMBAC_Desp)<span class="op">-</span><span class="kw">sum</span>(ativosf<span class="op">$</span>PMBAC_Rec)</span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="kw">print</span>(PMBAC_f)</span></code></pre></div>
 <pre><code>[1] 140346560468</code></pre>
 <p>Devido ao número excessivo de fatores, sera aceito erro de até 5/% dos valores acima</p>
 <hr />
@@ -5198,8 +4974,8 @@ PMBAC_{DESPESA} - PMBAC_{RECEITA}
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>qx =<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;tabuas_de_vida.csv&#39;</span>, <span class="dt">h =</span> T, <span class="dt">sep =</span> <span class="st">&#39;;&#39;</span>, <span class="dt">dec =</span> <span class="st">&#39;,&#39;</span>)</span>
-<span id="cb23-2"><a href="#cb23-2"></a>qx[<span class="kw">is.na</span>(qx)] &lt;-<span class="st"> </span><span class="dv">0</span> <span class="co">#trocar os NA por 0</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>qx =<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;tabuas_de_vida.csv&#39;</span>, <span class="dt">h =</span> T, <span class="dt">sep =</span> <span class="st">&#39;;&#39;</span>, <span class="dt">dec =</span> <span class="st">&#39;,&#39;</span>)</span>
+<span id="cb24-2"><a href="#cb24-2"></a>qx[<span class="kw">is.na</span>(qx)] &lt;-<span class="st"> </span><span class="dv">0</span> <span class="co">#trocar os NA por 0</span></span></code></pre></div>
 <p>Agradecimento aos amigos <strong>Matheus</strong>, <strong>Walef</strong> e <strong>Danilo</strong> pela ajuda com esta plataforma</p>
 <hr />
 </div>
@@ -5221,18 +4997,18 @@ A_x = \frac{M_x}{D_x}
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># SEGURO DE VIDA VITALICIO ------------------------------------------------</span></span>
-<span id="cb24-2"><a href="#cb24-2"></a>A =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">&#39;AT_49_F&#39;</span>, idade, juros){</span>
-<span id="cb24-3"><a href="#cb24-3"></a>  qx =<span class="st"> </span>qx[, tabua]</span>
-<span id="cb24-4"><a href="#cb24-4"></a>  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span></span>
-<span id="cb24-5"><a href="#cb24-5"></a>  qx =<span class="st"> </span>qx[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span><span class="kw">length</span>(qx)]</span>
-<span id="cb24-6"><a href="#cb24-6"></a>  px =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span><span class="op">-</span>qx[<span class="dv">1</span><span class="op">:</span>(<span class="kw">length</span>(qx)<span class="op">-</span><span class="dv">1</span>)])</span>
-<span id="cb24-7"><a href="#cb24-7"></a>  t =<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span><span class="op">:</span>(<span class="kw">length</span>(qx)<span class="op">-</span><span class="dv">1</span>))</span>
-<span id="cb24-8"><a href="#cb24-8"></a>  pxx =<span class="st"> </span><span class="kw">cumprod</span>(px)</span>
-<span id="cb24-9"><a href="#cb24-9"></a>  <span class="kw">return</span>(</span>
-<span id="cb24-10"><a href="#cb24-10"></a>    <span class="kw">sum</span>(v<span class="op">**</span>(t<span class="op">+</span><span class="dv">1</span>)<span class="op">*</span>pxx<span class="op">*</span>qx)</span>
-<span id="cb24-11"><a href="#cb24-11"></a>  )</span>
-<span id="cb24-12"><a href="#cb24-12"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># SEGURO DE VIDA VITALICIO ------------------------------------------------</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a>A =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">&#39;AT_49_F&#39;</span>, idade, juros){</span>
+<span id="cb25-3"><a href="#cb25-3"></a>  qx =<span class="st"> </span>qx[, tabua]</span>
+<span id="cb25-4"><a href="#cb25-4"></a>  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span></span>
+<span id="cb25-5"><a href="#cb25-5"></a>  qx =<span class="st"> </span>qx[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span><span class="kw">length</span>(qx)]</span>
+<span id="cb25-6"><a href="#cb25-6"></a>  px =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span><span class="op">-</span>qx[<span class="dv">1</span><span class="op">:</span>(<span class="kw">length</span>(qx)<span class="op">-</span><span class="dv">1</span>)])</span>
+<span id="cb25-7"><a href="#cb25-7"></a>  t =<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span><span class="op">:</span>(<span class="kw">length</span>(qx)<span class="op">-</span><span class="dv">1</span>))</span>
+<span id="cb25-8"><a href="#cb25-8"></a>  pxx =<span class="st"> </span><span class="kw">cumprod</span>(px)</span>
+<span id="cb25-9"><a href="#cb25-9"></a>  <span class="kw">return</span>(</span>
+<span id="cb25-10"><a href="#cb25-10"></a>    <span class="kw">sum</span>(v<span class="op">**</span>(t<span class="op">+</span><span class="dv">1</span>)<span class="op">*</span>pxx<span class="op">*</span>qx)</span>
+<span id="cb25-11"><a href="#cb25-11"></a>  )</span>
+<span id="cb25-12"><a href="#cb25-12"></a>}</span></code></pre></div>
 <hr />
 </div>
 <div id="seguro-vitalício-diferido" class="section level1" data-navmenu="Funções Atuariais">
@@ -5259,19 +5035,19 @@ _{m|}A_x = \frac{M_{x+m}}{D_x}
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co">#SEGURO DE VIDA VITALICIO DIFERIDO</span></span>
-<span id="cb25-2"><a href="#cb25-2"></a>A_dif =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">&#39;AT_49_F&#39;</span>, idade, juros, dif){</span>
-<span id="cb25-3"><a href="#cb25-3"></a>  qx =<span class="st"> </span>qx[, tabua]</span>
-<span id="cb25-4"><a href="#cb25-4"></a>  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span></span>
-<span id="cb25-5"><a href="#cb25-5"></a>  qx =<span class="st"> </span>qx[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span><span class="kw">length</span>(qx)]</span>
-<span id="cb25-6"><a href="#cb25-6"></a>  px =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span><span class="op">-</span>qx[<span class="dv">1</span><span class="op">:</span>(<span class="kw">length</span>(qx)<span class="op">-</span><span class="dv">1</span>)])</span>
-<span id="cb25-7"><a href="#cb25-7"></a>  t =<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span><span class="op">:</span>(<span class="kw">length</span>(qx)<span class="op">-</span><span class="dv">1</span>))</span>
-<span id="cb25-8"><a href="#cb25-8"></a>  dotal =<span class="st"> </span>v<span class="op">**</span>(dif)<span class="op">*</span><span class="kw">prod</span>(px[<span class="dv">1</span><span class="op">:</span>dif])</span>
-<span id="cb25-9"><a href="#cb25-9"></a>  pxx =<span class="st"> </span><span class="kw">cumprod</span>(px)</span>
-<span id="cb25-10"><a href="#cb25-10"></a>  <span class="kw">return</span>(</span>
-<span id="cb25-11"><a href="#cb25-11"></a>    <span class="kw">sum</span>(v<span class="op">**</span>(t<span class="op">+</span><span class="dv">1</span>)<span class="op">*</span>pxx<span class="op">*</span>qx)<span class="op">*</span>dotal</span>
-<span id="cb25-12"><a href="#cb25-12"></a>  )</span>
-<span id="cb25-13"><a href="#cb25-13"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co">#SEGURO DE VIDA VITALICIO DIFERIDO</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a>A_dif =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">&#39;AT_49_F&#39;</span>, idade, juros, dif){</span>
+<span id="cb26-3"><a href="#cb26-3"></a>  qx =<span class="st"> </span>qx[, tabua]</span>
+<span id="cb26-4"><a href="#cb26-4"></a>  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span></span>
+<span id="cb26-5"><a href="#cb26-5"></a>  qx =<span class="st"> </span>qx[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span><span class="kw">length</span>(qx)]</span>
+<span id="cb26-6"><a href="#cb26-6"></a>  px =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span><span class="op">-</span>qx[<span class="dv">1</span><span class="op">:</span>(<span class="kw">length</span>(qx)<span class="op">-</span><span class="dv">1</span>)])</span>
+<span id="cb26-7"><a href="#cb26-7"></a>  t =<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span><span class="op">:</span>(<span class="kw">length</span>(qx)<span class="op">-</span><span class="dv">1</span>))</span>
+<span id="cb26-8"><a href="#cb26-8"></a>  dotal =<span class="st"> </span>v<span class="op">**</span>(dif)<span class="op">*</span><span class="kw">prod</span>(px[<span class="dv">1</span><span class="op">:</span>dif])</span>
+<span id="cb26-9"><a href="#cb26-9"></a>  pxx =<span class="st"> </span><span class="kw">cumprod</span>(px)</span>
+<span id="cb26-10"><a href="#cb26-10"></a>  <span class="kw">return</span>(</span>
+<span id="cb26-11"><a href="#cb26-11"></a>    <span class="kw">sum</span>(v<span class="op">**</span>(t<span class="op">+</span><span class="dv">1</span>)<span class="op">*</span>pxx<span class="op">*</span>qx)<span class="op">*</span>dotal</span>
+<span id="cb26-12"><a href="#cb26-12"></a>  )</span>
+<span id="cb26-13"><a href="#cb26-13"></a>}</span></code></pre></div>
 <hr />
 </div>
 <div id="seguro-temporário" class="section level1" data-navmenu="Funções Atuariais">
@@ -5298,19 +5074,19 @@ A_{x^1:\bar{n|}} = \frac{M_x-M_{x+n}}{D_x}
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># SEGURO DE VIDA TEMPORARIO -----------------------------------------------</span></span>
-<span id="cb26-2"><a href="#cb26-2"></a>A_temp =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">&#39;AT_49_F&#39;</span>, idade, juros, n){</span>
-<span id="cb26-3"><a href="#cb26-3"></a>  qx =<span class="st"> </span>qx[, tabua]</span>
-<span id="cb26-4"><a href="#cb26-4"></a>  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span></span>
-<span id="cb26-5"><a href="#cb26-5"></a>  qx =<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">na.exclude</span>(qx[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(idade<span class="op">+</span>n)]))</span>
-<span id="cb26-6"><a href="#cb26-6"></a>  px =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span><span class="op">-</span>qx[<span class="dv">1</span><span class="op">:</span>(n<span class="dv">-1</span>)])</span>
-<span id="cb26-7"><a href="#cb26-7"></a>  t =<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span><span class="op">:</span>(n<span class="dv">-1</span>))</span>
-<span id="cb26-8"><a href="#cb26-8"></a>  pxx =<span class="st"> </span><span class="kw">cumprod</span>(px)</span>
-<span id="cb26-9"><a href="#cb26-9"></a>  <span class="kw">return</span>(</span>
-<span id="cb26-10"><a href="#cb26-10"></a>    <span class="kw">sum</span>(v<span class="op">**</span>(t<span class="op">+</span><span class="dv">1</span>)<span class="op">*</span>pxx<span class="op">*</span>qx)</span>
-<span id="cb26-11"><a href="#cb26-11"></a>  )</span>
-<span id="cb26-12"><a href="#cb26-12"></a>  </span>
-<span id="cb26-13"><a href="#cb26-13"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># SEGURO DE VIDA TEMPORARIO -----------------------------------------------</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a>A_temp =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">&#39;AT_49_F&#39;</span>, idade, juros, n){</span>
+<span id="cb27-3"><a href="#cb27-3"></a>  qx =<span class="st"> </span>qx[, tabua]</span>
+<span id="cb27-4"><a href="#cb27-4"></a>  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span></span>
+<span id="cb27-5"><a href="#cb27-5"></a>  qx =<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">na.exclude</span>(qx[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(idade<span class="op">+</span>n)]))</span>
+<span id="cb27-6"><a href="#cb27-6"></a>  px =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span><span class="op">-</span>qx[<span class="dv">1</span><span class="op">:</span>(n<span class="dv">-1</span>)])</span>
+<span id="cb27-7"><a href="#cb27-7"></a>  t =<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span><span class="op">:</span>(n<span class="dv">-1</span>))</span>
+<span id="cb27-8"><a href="#cb27-8"></a>  pxx =<span class="st"> </span><span class="kw">cumprod</span>(px)</span>
+<span id="cb27-9"><a href="#cb27-9"></a>  <span class="kw">return</span>(</span>
+<span id="cb27-10"><a href="#cb27-10"></a>    <span class="kw">sum</span>(v<span class="op">**</span>(t<span class="op">+</span><span class="dv">1</span>)<span class="op">*</span>pxx<span class="op">*</span>qx)</span>
+<span id="cb27-11"><a href="#cb27-11"></a>  )</span>
+<span id="cb27-12"><a href="#cb27-12"></a>  </span>
+<span id="cb27-13"><a href="#cb27-13"></a>}</span></code></pre></div>
 <hr />
 </div>
 <div id="seguro-temporário-e-diferido" class="section level1" data-navmenu="Funções Atuariais">
@@ -5337,21 +5113,21 @@ _{m|}A_{x^1:\bar{n|}} - \frac{M_{x+m}-M_{x+m+n}}{D_{x}}
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># SEGURO DE VIDA TEMPORARIO E DIFERIDO ------------------------------------</span></span>
-<span id="cb27-2"><a href="#cb27-2"></a>A_temp_dif =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">&#39;AT_49_F&#39;</span>, idade, juros, n, dif){</span>
-<span id="cb27-3"><a href="#cb27-3"></a>  qx =<span class="st"> </span>qx[, tabua]</span>
-<span id="cb27-4"><a href="#cb27-4"></a>  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span></span>
-<span id="cb27-5"><a href="#cb27-5"></a>  qx =<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">na.exclude</span>(qx[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(idade<span class="op">+</span>n<span class="op">+</span>dif)]))</span>
-<span id="cb27-6"><a href="#cb27-6"></a>  px =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span><span class="op">-</span>qx[<span class="dv">1</span><span class="op">:</span>(n<span class="op">+</span>dif<span class="dv">-1</span>)])</span>
-<span id="cb27-7"><a href="#cb27-7"></a>  t =<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span><span class="op">:</span>(n<span class="dv">-1</span>))</span>
-<span id="cb27-8"><a href="#cb27-8"></a>  dotal =<span class="st"> </span>v<span class="op">**</span>(dif)<span class="op">*</span><span class="kw">prod</span>(px[<span class="dv">1</span><span class="op">:</span>dif])</span>
-<span id="cb27-9"><a href="#cb27-9"></a>  pxx =<span class="st"> </span><span class="kw">cumprod</span>(px[(dif<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(<span class="kw">length</span>(px))])</span>
-<span id="cb27-10"><a href="#cb27-10"></a>  </span>
-<span id="cb27-11"><a href="#cb27-11"></a>  <span class="kw">return</span>(</span>
-<span id="cb27-12"><a href="#cb27-12"></a>    <span class="kw">sum</span>(v<span class="op">**</span>(t<span class="op">+</span><span class="dv">1</span>)<span class="op">*</span>pxx<span class="op">*</span>qx[(dif<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(dif<span class="op">+</span>n)])<span class="op">*</span>dotal</span>
-<span id="cb27-13"><a href="#cb27-13"></a>  )</span>
-<span id="cb27-14"><a href="#cb27-14"></a>  </span>
-<span id="cb27-15"><a href="#cb27-15"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># SEGURO DE VIDA TEMPORARIO E DIFERIDO ------------------------------------</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a>A_temp_dif =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">&#39;AT_49_F&#39;</span>, idade, juros, n, dif){</span>
+<span id="cb28-3"><a href="#cb28-3"></a>  qx =<span class="st"> </span>qx[, tabua]</span>
+<span id="cb28-4"><a href="#cb28-4"></a>  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span></span>
+<span id="cb28-5"><a href="#cb28-5"></a>  qx =<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">na.exclude</span>(qx[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(idade<span class="op">+</span>n<span class="op">+</span>dif)]))</span>
+<span id="cb28-6"><a href="#cb28-6"></a>  px =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span><span class="op">-</span>qx[<span class="dv">1</span><span class="op">:</span>(n<span class="op">+</span>dif<span class="dv">-1</span>)])</span>
+<span id="cb28-7"><a href="#cb28-7"></a>  t =<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span><span class="op">:</span>(n<span class="dv">-1</span>))</span>
+<span id="cb28-8"><a href="#cb28-8"></a>  dotal =<span class="st"> </span>v<span class="op">**</span>(dif)<span class="op">*</span><span class="kw">prod</span>(px[<span class="dv">1</span><span class="op">:</span>dif])</span>
+<span id="cb28-9"><a href="#cb28-9"></a>  pxx =<span class="st"> </span><span class="kw">cumprod</span>(px[(dif<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(<span class="kw">length</span>(px))])</span>
+<span id="cb28-10"><a href="#cb28-10"></a>  </span>
+<span id="cb28-11"><a href="#cb28-11"></a>  <span class="kw">return</span>(</span>
+<span id="cb28-12"><a href="#cb28-12"></a>    <span class="kw">sum</span>(v<span class="op">**</span>(t<span class="op">+</span><span class="dv">1</span>)<span class="op">*</span>pxx<span class="op">*</span>qx[(dif<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(dif<span class="op">+</span>n)])<span class="op">*</span>dotal</span>
+<span id="cb28-13"><a href="#cb28-13"></a>  )</span>
+<span id="cb28-14"><a href="#cb28-14"></a>  </span>
+<span id="cb28-15"><a href="#cb28-15"></a>}</span></code></pre></div>
 <hr />
 </div>
 <div id="dotal-puro" class="section level1" data-navmenu="Funções Atuariais">
@@ -5372,15 +5148,15 @@ A_{x:\bar{n|^1}} = \frac{D_{x+n}}{D_x}
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># SEGURO DE VIDA DOTAL PURO -----------------------------------------------</span></span>
-<span id="cb28-2"><a href="#cb28-2"></a>A_dotal =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">&#39;AT_49_F&#39;</span>, idade, juros, n){</span>
-<span id="cb28-3"><a href="#cb28-3"></a>  qx =<span class="st"> </span>qx[, tabua]</span>
-<span id="cb28-4"><a href="#cb28-4"></a>  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span></span>
-<span id="cb28-5"><a href="#cb28-5"></a>  qx[<span class="kw">is.na</span>(qx)] =<span class="st"> </span><span class="dv">1</span></span>
-<span id="cb28-6"><a href="#cb28-6"></a>  px =<span class="st"> </span><span class="dv">1</span><span class="op">-</span>qx</span>
-<span id="cb28-7"><a href="#cb28-7"></a>  dotal =<span class="st"> </span>(v<span class="op">^</span>n)<span class="op">*</span><span class="kw">prod</span>(px[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(idade<span class="op">+</span>n)])</span>
-<span id="cb28-8"><a href="#cb28-8"></a>  <span class="kw">return</span>(dotal)</span>
-<span id="cb28-9"><a href="#cb28-9"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="co"># SEGURO DE VIDA DOTAL PURO -----------------------------------------------</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a>A_dotal =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">&#39;AT_49_F&#39;</span>, idade, juros, n){</span>
+<span id="cb29-3"><a href="#cb29-3"></a>  qx =<span class="st"> </span>qx[, tabua]</span>
+<span id="cb29-4"><a href="#cb29-4"></a>  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span></span>
+<span id="cb29-5"><a href="#cb29-5"></a>  qx[<span class="kw">is.na</span>(qx)] =<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb29-6"><a href="#cb29-6"></a>  px =<span class="st"> </span><span class="dv">1</span><span class="op">-</span>qx</span>
+<span id="cb29-7"><a href="#cb29-7"></a>  dotal =<span class="st"> </span>(v<span class="op">^</span>n)<span class="op">*</span><span class="kw">prod</span>(px[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(idade<span class="op">+</span>n)])</span>
+<span id="cb29-8"><a href="#cb29-8"></a>  <span class="kw">return</span>(dotal)</span>
+<span id="cb29-9"><a href="#cb29-9"></a>}</span></code></pre></div>
 <hr />
 </div>
 <div id="dotal-misto" class="section level1" data-navmenu="Funções Atuariais">
@@ -5401,12 +5177,12 @@ A_{x:\bar{n|}} = \frac{D_{x+n} + M_{x} - M_{x+m}}{D_x}
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="co"># SEGURO DE VIDA DOTAL MISTO ----------------------------------------------</span></span>
-<span id="cb29-2"><a href="#cb29-2"></a>A_dotal_misto =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">&#39;AT_49_F&#39;</span>, idade, juros, n){</span>
-<span id="cb29-3"><a href="#cb29-3"></a>  puro =<span class="st"> </span><span class="kw">A_dotal</span>(<span class="dt">tabua =</span> tabua, <span class="dt">idade =</span> idade, <span class="dt">juros =</span> juros, <span class="dt">n =</span> n)</span>
-<span id="cb29-4"><a href="#cb29-4"></a>  temp =<span class="st"> </span><span class="kw">A_temp</span>(<span class="dt">tabua =</span> tabua, <span class="dt">idade =</span> idade, <span class="dt">juros =</span> juros, <span class="dt">n =</span> n)</span>
-<span id="cb29-5"><a href="#cb29-5"></a>  <span class="kw">return</span>(puro <span class="op">+</span><span class="st"> </span>temp)</span>
-<span id="cb29-6"><a href="#cb29-6"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># SEGURO DE VIDA DOTAL MISTO ----------------------------------------------</span></span>
+<span id="cb30-2"><a href="#cb30-2"></a>A_dotal_misto =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">&#39;AT_49_F&#39;</span>, idade, juros, n){</span>
+<span id="cb30-3"><a href="#cb30-3"></a>  puro =<span class="st"> </span><span class="kw">A_dotal</span>(<span class="dt">tabua =</span> tabua, <span class="dt">idade =</span> idade, <span class="dt">juros =</span> juros, <span class="dt">n =</span> n)</span>
+<span id="cb30-4"><a href="#cb30-4"></a>  temp =<span class="st"> </span><span class="kw">A_temp</span>(<span class="dt">tabua =</span> tabua, <span class="dt">idade =</span> idade, <span class="dt">juros =</span> juros, <span class="dt">n =</span> n)</span>
+<span id="cb30-5"><a href="#cb30-5"></a>  <span class="kw">return</span>(puro <span class="op">+</span><span class="st"> </span>temp)</span>
+<span id="cb30-6"><a href="#cb30-6"></a>}</span></code></pre></div>
 <hr />
 </div>
 <div id="anuidade-antecipada-vitalícia" class="section level1" data-navmenu="Funções Atuariais">
@@ -5439,16 +5215,16 @@ A_{x:\bar{n|}} = \frac{D_{x+n} + M_{x} - M_{x+m}}{D_x}
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># ANUIDADE ANTECIPADA VITALICIA  ------------------------------------------------------</span></span>
-<span id="cb30-2"><a href="#cb30-2"></a>a_ant_vit =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">&#39;AT_49_F&#39;</span>, idade, juros){</span>
-<span id="cb30-3"><a href="#cb30-3"></a>  qx =<span class="st"> </span>qx[, tabua]</span>
-<span id="cb30-4"><a href="#cb30-4"></a>  qx[<span class="kw">is.na</span>(qx)] =<span class="st"> </span><span class="dv">1</span></span>
-<span id="cb30-5"><a href="#cb30-5"></a>  px =<span class="st"> </span><span class="dv">1</span><span class="op">-</span>qx</span>
-<span id="cb30-6"><a href="#cb30-6"></a>  pxx =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">cumprod</span>(px[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span><span class="kw">length</span>(px)]))</span>
-<span id="cb30-7"><a href="#cb30-7"></a>  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span></span>
-<span id="cb30-8"><a href="#cb30-8"></a>  t &lt;-<span class="st"> </span>(<span class="dv">0</span><span class="op">:</span>(<span class="kw">length</span>(pxx)<span class="op">-</span><span class="dv">1</span>))</span>
-<span id="cb30-9"><a href="#cb30-9"></a>  <span class="kw">return</span>(<span class="kw">sum</span>(v<span class="op">^</span>(t)<span class="op">*</span>pxx))</span>
-<span id="cb30-10"><a href="#cb30-10"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="co"># ANUIDADE ANTECIPADA VITALICIA  ------------------------------------------------------</span></span>
+<span id="cb31-2"><a href="#cb31-2"></a>a_ant_vit =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">&#39;AT_49_F&#39;</span>, idade, juros){</span>
+<span id="cb31-3"><a href="#cb31-3"></a>  qx =<span class="st"> </span>qx[, tabua]</span>
+<span id="cb31-4"><a href="#cb31-4"></a>  qx[<span class="kw">is.na</span>(qx)] =<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb31-5"><a href="#cb31-5"></a>  px =<span class="st"> </span><span class="dv">1</span><span class="op">-</span>qx</span>
+<span id="cb31-6"><a href="#cb31-6"></a>  pxx =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">cumprod</span>(px[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span><span class="kw">length</span>(px)]))</span>
+<span id="cb31-7"><a href="#cb31-7"></a>  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span></span>
+<span id="cb31-8"><a href="#cb31-8"></a>  t &lt;-<span class="st"> </span>(<span class="dv">0</span><span class="op">:</span>(<span class="kw">length</span>(pxx)<span class="op">-</span><span class="dv">1</span>))</span>
+<span id="cb31-9"><a href="#cb31-9"></a>  <span class="kw">return</span>(<span class="kw">sum</span>(v<span class="op">^</span>(t)<span class="op">*</span>pxx))</span>
+<span id="cb31-10"><a href="#cb31-10"></a>}</span></code></pre></div>
 <hr />
 </div>
 <div id="anuidade-antecipada-temporária" class="section level1" data-navmenu="Funções Atuariais">
@@ -5481,16 +5257,16 @@ A_{x:\bar{n|}} = \frac{D_{x+n} + M_{x} - M_{x+m}}{D_x}
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="co"># ANUIDADE ANTECIPADA TEMPORARIA ------------------------------------------</span></span>
-<span id="cb31-2"><a href="#cb31-2"></a>a_ant_temp =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">&#39;AT_49_F&#39;</span>, idade, juros, n){</span>
-<span id="cb31-3"><a href="#cb31-3"></a>  qx =<span class="st"> </span>qx[, tabua]</span>
-<span id="cb31-4"><a href="#cb31-4"></a>  qx[<span class="kw">is.na</span>(qx)] =<span class="st"> </span><span class="dv">1</span></span>
-<span id="cb31-5"><a href="#cb31-5"></a>  px =<span class="st"> </span><span class="dv">1</span><span class="op">-</span>qx</span>
-<span id="cb31-6"><a href="#cb31-6"></a>  pxx =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">cumprod</span>(px[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(idade<span class="op">+</span>n<span class="dv">-1</span>)]))</span>
-<span id="cb31-7"><a href="#cb31-7"></a>  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span></span>
-<span id="cb31-8"><a href="#cb31-8"></a>  t &lt;-<span class="st"> </span>(<span class="dv">0</span><span class="op">:</span>(n<span class="dv">-1</span>))</span>
-<span id="cb31-9"><a href="#cb31-9"></a>  <span class="kw">return</span>(<span class="kw">sum</span>(v<span class="op">^</span>(t)<span class="op">*</span>pxx))</span>
-<span id="cb31-10"><a href="#cb31-10"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="co"># ANUIDADE ANTECIPADA TEMPORARIA ------------------------------------------</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a>a_ant_temp =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">&#39;AT_49_F&#39;</span>, idade, juros, n){</span>
+<span id="cb32-3"><a href="#cb32-3"></a>  qx =<span class="st"> </span>qx[, tabua]</span>
+<span id="cb32-4"><a href="#cb32-4"></a>  qx[<span class="kw">is.na</span>(qx)] =<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb32-5"><a href="#cb32-5"></a>  px =<span class="st"> </span><span class="dv">1</span><span class="op">-</span>qx</span>
+<span id="cb32-6"><a href="#cb32-6"></a>  pxx =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">cumprod</span>(px[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(idade<span class="op">+</span>n<span class="dv">-1</span>)]))</span>
+<span id="cb32-7"><a href="#cb32-7"></a>  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span></span>
+<span id="cb32-8"><a href="#cb32-8"></a>  t &lt;-<span class="st"> </span>(<span class="dv">0</span><span class="op">:</span>(n<span class="dv">-1</span>))</span>
+<span id="cb32-9"><a href="#cb32-9"></a>  <span class="kw">return</span>(<span class="kw">sum</span>(v<span class="op">^</span>(t)<span class="op">*</span>pxx))</span>
+<span id="cb32-10"><a href="#cb32-10"></a>}</span></code></pre></div>
 <hr />
 </div>
 <div id="anuidade-antecipada-vitalícia-e-diferida" class="section level1" data-navmenu="Funções Atuariais">
@@ -5511,17 +5287,17 @@ _{m|} \ddot{a}_x = \frac{N_{x+m}}{D_x}
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="co"># ANUIDADE ANTECIPADA VITALICIA E DIFERIDA --------------------------------</span></span>
-<span id="cb32-2"><a href="#cb32-2"></a>a_ant_vit_dif =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">&#39;AT_49_F&#39;</span>, idade, juros, dif){</span>
-<span id="cb32-3"><a href="#cb32-3"></a>  qx =<span class="st"> </span>qx[, tabua]</span>
-<span id="cb32-4"><a href="#cb32-4"></a>  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span></span>
-<span id="cb32-5"><a href="#cb32-5"></a>  qx[<span class="kw">is.na</span>(qx)] =<span class="st"> </span><span class="dv">1</span></span>
-<span id="cb32-6"><a href="#cb32-6"></a>  px =<span class="st"> </span><span class="dv">1</span><span class="op">-</span>qx</span>
-<span id="cb32-7"><a href="#cb32-7"></a>  dotal =<span class="st"> </span>(v<span class="op">^</span>dif)<span class="op">*</span><span class="kw">prod</span>(px[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(idade<span class="op">+</span>dif)])</span>
-<span id="cb32-8"><a href="#cb32-8"></a>  pxx =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">cumprod</span>(px[(idade<span class="op">+</span>dif<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(<span class="kw">length</span>(px)<span class="op">-</span><span class="dv">1</span>)]))</span>
-<span id="cb32-9"><a href="#cb32-9"></a>  t =<span class="st"> </span>(<span class="dv">0</span><span class="op">:</span>(<span class="kw">length</span>(pxx)<span class="op">-</span><span class="dv">1</span>))</span>
-<span id="cb32-10"><a href="#cb32-10"></a>  <span class="kw">return</span>(dotal<span class="op">*</span><span class="kw">sum</span>(v<span class="op">**</span>t <span class="op">*</span><span class="st"> </span>pxx))</span>
-<span id="cb32-11"><a href="#cb32-11"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="co"># ANUIDADE ANTECIPADA VITALICIA E DIFERIDA --------------------------------</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a>a_ant_vit_dif =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">&#39;AT_49_F&#39;</span>, idade, juros, dif){</span>
+<span id="cb33-3"><a href="#cb33-3"></a>  qx =<span class="st"> </span>qx[, tabua]</span>
+<span id="cb33-4"><a href="#cb33-4"></a>  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span></span>
+<span id="cb33-5"><a href="#cb33-5"></a>  qx[<span class="kw">is.na</span>(qx)] =<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb33-6"><a href="#cb33-6"></a>  px =<span class="st"> </span><span class="dv">1</span><span class="op">-</span>qx</span>
+<span id="cb33-7"><a href="#cb33-7"></a>  dotal =<span class="st"> </span>(v<span class="op">^</span>dif)<span class="op">*</span><span class="kw">prod</span>(px[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(idade<span class="op">+</span>dif)])</span>
+<span id="cb33-8"><a href="#cb33-8"></a>  pxx =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">cumprod</span>(px[(idade<span class="op">+</span>dif<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(<span class="kw">length</span>(px)<span class="op">-</span><span class="dv">1</span>)]))</span>
+<span id="cb33-9"><a href="#cb33-9"></a>  t =<span class="st"> </span>(<span class="dv">0</span><span class="op">:</span>(<span class="kw">length</span>(pxx)<span class="op">-</span><span class="dv">1</span>))</span>
+<span id="cb33-10"><a href="#cb33-10"></a>  <span class="kw">return</span>(dotal<span class="op">*</span><span class="kw">sum</span>(v<span class="op">**</span>t <span class="op">*</span><span class="st"> </span>pxx))</span>
+<span id="cb33-11"><a href="#cb33-11"></a>}</span></code></pre></div>
 <hr />
 </div>
 <div id="anuidade-antecipada-temporária-e-diferida" class="section level1" data-navmenu="Funções Atuariais">
@@ -5548,17 +5324,17 @@ _{m|} \ddot{a}_{x:\bar{n|}}^{(m)} \approx _{m|} \ddot{a}_x  - \frac{m-1}{2m}(_mE
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="co"># ANUIDADE ANTECIPADA DIFERIDA E TEMPORARIA -------------------------------</span></span>
-<span id="cb33-2"><a href="#cb33-2"></a>a_ant_temp_dif =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">&#39;AT_49_F&#39;</span>, idade, juros, n, dif){</span>
-<span id="cb33-3"><a href="#cb33-3"></a>  qx =<span class="st"> </span>qx[, tabua]</span>
-<span id="cb33-4"><a href="#cb33-4"></a>  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span></span>
-<span id="cb33-5"><a href="#cb33-5"></a>  qx[<span class="kw">is.na</span>(qx)] =<span class="st"> </span><span class="dv">1</span></span>
-<span id="cb33-6"><a href="#cb33-6"></a>  px =<span class="st"> </span><span class="dv">1</span><span class="op">-</span>qx</span>
-<span id="cb33-7"><a href="#cb33-7"></a>  dotal =<span class="st"> </span>(v<span class="op">^</span>dif)<span class="op">*</span><span class="kw">prod</span>(px[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(idade<span class="op">+</span>dif)])</span>
-<span id="cb33-8"><a href="#cb33-8"></a>  pxx =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">cumprod</span>(px[(idade<span class="op">+</span>dif<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(idade<span class="op">+</span>dif<span class="op">+</span>n<span class="dv">-1</span>)]))</span>
-<span id="cb33-9"><a href="#cb33-9"></a>  t =<span class="st"> </span>(<span class="dv">0</span><span class="op">:</span>(<span class="kw">length</span>(pxx)<span class="op">-</span><span class="dv">1</span>))</span>
-<span id="cb33-10"><a href="#cb33-10"></a>  <span class="kw">return</span>(dotal<span class="op">*</span><span class="kw">sum</span>(v<span class="op">**</span>t <span class="op">*</span><span class="st"> </span>pxx))</span>
-<span id="cb33-11"><a href="#cb33-11"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="co"># ANUIDADE ANTECIPADA DIFERIDA E TEMPORARIA -------------------------------</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a>a_ant_temp_dif =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">&#39;AT_49_F&#39;</span>, idade, juros, n, dif){</span>
+<span id="cb34-3"><a href="#cb34-3"></a>  qx =<span class="st"> </span>qx[, tabua]</span>
+<span id="cb34-4"><a href="#cb34-4"></a>  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span></span>
+<span id="cb34-5"><a href="#cb34-5"></a>  qx[<span class="kw">is.na</span>(qx)] =<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb34-6"><a href="#cb34-6"></a>  px =<span class="st"> </span><span class="dv">1</span><span class="op">-</span>qx</span>
+<span id="cb34-7"><a href="#cb34-7"></a>  dotal =<span class="st"> </span>(v<span class="op">^</span>dif)<span class="op">*</span><span class="kw">prod</span>(px[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(idade<span class="op">+</span>dif)])</span>
+<span id="cb34-8"><a href="#cb34-8"></a>  pxx =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">cumprod</span>(px[(idade<span class="op">+</span>dif<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(idade<span class="op">+</span>dif<span class="op">+</span>n<span class="dv">-1</span>)]))</span>
+<span id="cb34-9"><a href="#cb34-9"></a>  t =<span class="st"> </span>(<span class="dv">0</span><span class="op">:</span>(<span class="kw">length</span>(pxx)<span class="op">-</span><span class="dv">1</span>))</span>
+<span id="cb34-10"><a href="#cb34-10"></a>  <span class="kw">return</span>(dotal<span class="op">*</span><span class="kw">sum</span>(v<span class="op">**</span>t <span class="op">*</span><span class="st"> </span>pxx))</span>
+<span id="cb34-11"><a href="#cb34-11"></a>}</span></code></pre></div>
 <hr />
 </div>
 <div id="anuidade-postecipada-e-vitalícia" class="section level1" data-navmenu="Funções Atuariais">
@@ -5588,16 +5364,16 @@ a_x = \frac{N_{x+1}}{D_x}
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="co"># ANUIDADE POSTECIPADA VITALICIA ------------------------------------------</span></span>
-<span id="cb34-2"><a href="#cb34-2"></a>a_post_vit =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">&#39;AT_49_F&#39;</span>, idade, juros){</span>
-<span id="cb34-3"><a href="#cb34-3"></a>  qx =<span class="st"> </span>qx[, tabua]</span>
-<span id="cb34-4"><a href="#cb34-4"></a>  qx[<span class="kw">is.na</span>(qx)] =<span class="st"> </span><span class="dv">1</span></span>
-<span id="cb34-5"><a href="#cb34-5"></a>  px =<span class="st"> </span><span class="dv">1</span><span class="op">-</span>qx</span>
-<span id="cb34-6"><a href="#cb34-6"></a>  pxx =<span class="st"> </span><span class="kw">c</span>(<span class="kw">cumprod</span>(px[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span><span class="kw">length</span>(px)]))</span>
-<span id="cb34-7"><a href="#cb34-7"></a>  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span></span>
-<span id="cb34-8"><a href="#cb34-8"></a>  t &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</span>(<span class="kw">length</span>(pxx)))</span>
-<span id="cb34-9"><a href="#cb34-9"></a>  <span class="kw">return</span>(<span class="kw">sum</span>(v<span class="op">^</span>(t)<span class="op">*</span>pxx))</span>
-<span id="cb34-10"><a href="#cb34-10"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="co"># ANUIDADE POSTECIPADA VITALICIA ------------------------------------------</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a>a_post_vit =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">&#39;AT_49_F&#39;</span>, idade, juros){</span>
+<span id="cb35-3"><a href="#cb35-3"></a>  qx =<span class="st"> </span>qx[, tabua]</span>
+<span id="cb35-4"><a href="#cb35-4"></a>  qx[<span class="kw">is.na</span>(qx)] =<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb35-5"><a href="#cb35-5"></a>  px =<span class="st"> </span><span class="dv">1</span><span class="op">-</span>qx</span>
+<span id="cb35-6"><a href="#cb35-6"></a>  pxx =<span class="st"> </span><span class="kw">c</span>(<span class="kw">cumprod</span>(px[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span><span class="kw">length</span>(px)]))</span>
+<span id="cb35-7"><a href="#cb35-7"></a>  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span></span>
+<span id="cb35-8"><a href="#cb35-8"></a>  t &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</span>(<span class="kw">length</span>(pxx)))</span>
+<span id="cb35-9"><a href="#cb35-9"></a>  <span class="kw">return</span>(<span class="kw">sum</span>(v<span class="op">^</span>(t)<span class="op">*</span>pxx))</span>
+<span id="cb35-10"><a href="#cb35-10"></a>}</span></code></pre></div>
 <hr />
 </div>
 <div id="anuidade-postecipada-vitalícia-e-diferida" class="section level1" data-navmenu="Funções Atuariais">
@@ -5618,17 +5394,17 @@ _{m|} a_x = \frac{N_{x+m+1}}{D_x}
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="co"># ANUIDADE POSTECIPADA VITALICIA E DIFERIDA -------------------------------</span></span>
-<span id="cb35-2"><a href="#cb35-2"></a>a_post_vit_dif =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">&#39;AT_49_F&#39;</span>, idade, juros, dif){</span>
-<span id="cb35-3"><a href="#cb35-3"></a>  qx =<span class="st"> </span>qx[, tabua]</span>
-<span id="cb35-4"><a href="#cb35-4"></a>  qx[<span class="kw">is.na</span>(qx)] =<span class="st"> </span><span class="dv">1</span></span>
-<span id="cb35-5"><a href="#cb35-5"></a>  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span></span>
-<span id="cb35-6"><a href="#cb35-6"></a>  px =<span class="st"> </span><span class="dv">1</span><span class="op">-</span>qx</span>
-<span id="cb35-7"><a href="#cb35-7"></a>  dotal =<span class="st"> </span>v<span class="op">**</span>dif <span class="op">*</span><span class="st"> </span><span class="kw">prod</span>(px[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(idade<span class="op">+</span>dif)])</span>
-<span id="cb35-8"><a href="#cb35-8"></a>  pxx =<span class="st"> </span><span class="kw">c</span>(<span class="kw">cumprod</span>(px[(idade<span class="op">+</span><span class="dv">1</span><span class="op">+</span>dif)<span class="op">:</span><span class="kw">length</span>(px)]))</span>
-<span id="cb35-9"><a href="#cb35-9"></a>  t &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</span>(<span class="kw">length</span>(pxx)))</span>
-<span id="cb35-10"><a href="#cb35-10"></a>  <span class="kw">return</span>(dotal <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(v<span class="op">^</span>(t)<span class="op">*</span>pxx))</span>
-<span id="cb35-11"><a href="#cb35-11"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="co"># ANUIDADE POSTECIPADA VITALICIA E DIFERIDA -------------------------------</span></span>
+<span id="cb36-2"><a href="#cb36-2"></a>a_post_vit_dif =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">&#39;AT_49_F&#39;</span>, idade, juros, dif){</span>
+<span id="cb36-3"><a href="#cb36-3"></a>  qx =<span class="st"> </span>qx[, tabua]</span>
+<span id="cb36-4"><a href="#cb36-4"></a>  qx[<span class="kw">is.na</span>(qx)] =<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb36-5"><a href="#cb36-5"></a>  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span></span>
+<span id="cb36-6"><a href="#cb36-6"></a>  px =<span class="st"> </span><span class="dv">1</span><span class="op">-</span>qx</span>
+<span id="cb36-7"><a href="#cb36-7"></a>  dotal =<span class="st"> </span>v<span class="op">**</span>dif <span class="op">*</span><span class="st"> </span><span class="kw">prod</span>(px[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(idade<span class="op">+</span>dif)])</span>
+<span id="cb36-8"><a href="#cb36-8"></a>  pxx =<span class="st"> </span><span class="kw">c</span>(<span class="kw">cumprod</span>(px[(idade<span class="op">+</span><span class="dv">1</span><span class="op">+</span>dif)<span class="op">:</span><span class="kw">length</span>(px)]))</span>
+<span id="cb36-9"><a href="#cb36-9"></a>  t &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</span>(<span class="kw">length</span>(pxx)))</span>
+<span id="cb36-10"><a href="#cb36-10"></a>  <span class="kw">return</span>(dotal <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(v<span class="op">^</span>(t)<span class="op">*</span>pxx))</span>
+<span id="cb36-11"><a href="#cb36-11"></a>}</span></code></pre></div>
 <hr />
 </div>
 <div id="anuidade-postecipada-temporária" class="section level1" data-navmenu="Funções Atuariais">
@@ -5655,16 +5431,16 @@ a_{x:\bar{n|}} = \frac{N_{x+1} - N_{x+n+1}}{D_x}
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="co"># ANUIDADE POSTECIPADA TEMPORARIA -----------------------------------------</span></span>
-<span id="cb36-2"><a href="#cb36-2"></a>a_post_temp =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">&#39;AT_49_F&#39;</span>, idade, juros, n){</span>
-<span id="cb36-3"><a href="#cb36-3"></a>  qx =<span class="st"> </span>qx[, tabua]</span>
-<span id="cb36-4"><a href="#cb36-4"></a>  qx[<span class="kw">is.na</span>(qx)] =<span class="st"> </span><span class="dv">1</span></span>
-<span id="cb36-5"><a href="#cb36-5"></a>  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span></span>
-<span id="cb36-6"><a href="#cb36-6"></a>  px =<span class="st"> </span><span class="dv">1</span><span class="op">-</span>qx</span>
-<span id="cb36-7"><a href="#cb36-7"></a>  pxx =<span class="st"> </span><span class="kw">cumprod</span>(px[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(idade<span class="op">+</span>n)])</span>
-<span id="cb36-8"><a href="#cb36-8"></a>  t &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</span>n)</span>
-<span id="cb36-9"><a href="#cb36-9"></a>  <span class="kw">return</span>(<span class="kw">sum</span>(v<span class="op">^</span>(t)<span class="op">*</span>pxx))</span>
-<span id="cb36-10"><a href="#cb36-10"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="co"># ANUIDADE POSTECIPADA TEMPORARIA -----------------------------------------</span></span>
+<span id="cb37-2"><a href="#cb37-2"></a>a_post_temp =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">&#39;AT_49_F&#39;</span>, idade, juros, n){</span>
+<span id="cb37-3"><a href="#cb37-3"></a>  qx =<span class="st"> </span>qx[, tabua]</span>
+<span id="cb37-4"><a href="#cb37-4"></a>  qx[<span class="kw">is.na</span>(qx)] =<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb37-5"><a href="#cb37-5"></a>  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span></span>
+<span id="cb37-6"><a href="#cb37-6"></a>  px =<span class="st"> </span><span class="dv">1</span><span class="op">-</span>qx</span>
+<span id="cb37-7"><a href="#cb37-7"></a>  pxx =<span class="st"> </span><span class="kw">cumprod</span>(px[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(idade<span class="op">+</span>n)])</span>
+<span id="cb37-8"><a href="#cb37-8"></a>  t &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</span>n)</span>
+<span id="cb37-9"><a href="#cb37-9"></a>  <span class="kw">return</span>(<span class="kw">sum</span>(v<span class="op">^</span>(t)<span class="op">*</span>pxx))</span>
+<span id="cb37-10"><a href="#cb37-10"></a>}</span></code></pre></div>
 <hr />
 </div>
 <div id="anuidade-postecipada-temporária-e-diferida" class="section level1" data-navmenu="Funções Atuariais">
@@ -5688,17 +5464,17 @@ _{m|}{a}_{x:\bar{n|}}^{(m)} \approx _{m|}a_{x:\bar{n|}} + \frac{m-1}{2m}(_mE_x-_
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="co"># ANUIDADE POSTECIPADA TEMPORARIA E DIFERIDA ------------------------------</span></span>
-<span id="cb37-2"><a href="#cb37-2"></a>a_post_temp_dif =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">&#39;AT_49_F&#39;</span>, idade, juros, n, dif){</span>
-<span id="cb37-3"><a href="#cb37-3"></a>  qx =<span class="st"> </span>qx[, tabua]</span>
-<span id="cb37-4"><a href="#cb37-4"></a>  qx[<span class="kw">is.na</span>(qx)] =<span class="st"> </span><span class="dv">1</span></span>
-<span id="cb37-5"><a href="#cb37-5"></a>  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span></span>
-<span id="cb37-6"><a href="#cb37-6"></a>  px =<span class="st"> </span><span class="dv">1</span><span class="op">-</span>qx</span>
-<span id="cb37-7"><a href="#cb37-7"></a>  dotal =<span class="st"> </span>v<span class="op">**</span>dif <span class="op">*</span><span class="st"> </span><span class="kw">prod</span>(px[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(idade<span class="op">+</span>dif)])</span>
-<span id="cb37-8"><a href="#cb37-8"></a>  pxx =<span class="st"> </span><span class="kw">cumprod</span>(px[(idade<span class="op">+</span><span class="dv">1</span><span class="op">+</span>dif)<span class="op">:</span>(idade<span class="op">+</span>dif<span class="op">+</span>n)])</span>
-<span id="cb37-9"><a href="#cb37-9"></a>  t &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</span>n)</span>
-<span id="cb37-10"><a href="#cb37-10"></a>  <span class="kw">return</span>(dotal <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(v<span class="op">^</span>(t)<span class="op">*</span>pxx))</span>
-<span id="cb37-11"><a href="#cb37-11"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="co"># ANUIDADE POSTECIPADA TEMPORARIA E DIFERIDA ------------------------------</span></span>
+<span id="cb38-2"><a href="#cb38-2"></a>a_post_temp_dif =<span class="st"> </span><span class="cf">function</span>(<span class="dt">tabua =</span> <span class="st">&#39;AT_49_F&#39;</span>, idade, juros, n, dif){</span>
+<span id="cb38-3"><a href="#cb38-3"></a>  qx =<span class="st"> </span>qx[, tabua]</span>
+<span id="cb38-4"><a href="#cb38-4"></a>  qx[<span class="kw">is.na</span>(qx)] =<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb38-5"><a href="#cb38-5"></a>  v =<span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>juros)<span class="op">**-</span><span class="dv">1</span></span>
+<span id="cb38-6"><a href="#cb38-6"></a>  px =<span class="st"> </span><span class="dv">1</span><span class="op">-</span>qx</span>
+<span id="cb38-7"><a href="#cb38-7"></a>  dotal =<span class="st"> </span>v<span class="op">**</span>dif <span class="op">*</span><span class="st"> </span><span class="kw">prod</span>(px[(idade<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(idade<span class="op">+</span>dif)])</span>
+<span id="cb38-8"><a href="#cb38-8"></a>  pxx =<span class="st"> </span><span class="kw">cumprod</span>(px[(idade<span class="op">+</span><span class="dv">1</span><span class="op">+</span>dif)<span class="op">:</span>(idade<span class="op">+</span>dif<span class="op">+</span>n)])</span>
+<span id="cb38-9"><a href="#cb38-9"></a>  t &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</span>n)</span>
+<span id="cb38-10"><a href="#cb38-10"></a>  <span class="kw">return</span>(dotal <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(v<span class="op">^</span>(t)<span class="op">*</span>pxx))</span>
+<span id="cb38-11"><a href="#cb38-11"></a>}</span></code></pre></div>
 </div>
 
 </div>
