@@ -2738,7 +2738,7 @@ window.FlexDashboardComponents.push({
 <li>Tarefa 3 (Disponível)</li>
 <li>Tarefa 4 (Disponível)</li>
 <li>Tarefa 5 (Disponível)</li>
-<li>Tarefa 6 (Indisponível)</li>
+<li>Tarefa 6 (Disponível)</li>
 <li>Tarefa 7 (Indisponível)</li>
 </ul></li>
 <li>Relatório final</li>
@@ -3782,12 +3782,12 @@ window.FlexDashboardComponents.push({
 </div>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>af_p &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;ativos_fem.csv&quot;</span>)</span>
 <span id="cb16-2"><a href="#cb16-2"></a>af_p<span class="op">$</span>Sexo_participante &lt;-<span class="st"> &quot;F&quot;</span></span>
-<span id="cb16-3"><a href="#cb16-3"></a><span class="kw">kable</span>(<span class="kw">head</span>(af_p))</span></code></pre></div>
+<span id="cb16-3"><a href="#cb16-3"></a>knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(af_m))</span></code></pre></div>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>af_m &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;ativos_mas.csv&quot;</span>)</span>
-<span id="cb17-2"><a href="#cb17-2"></a><span class="kw">kable</span>(<span class="kw">head</span>(af_m))</span></code></pre></div>
+<span id="cb17-2"><a href="#cb17-2"></a>knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(af_m))</span></code></pre></div>
 <table style="width:100%;">
 <colgroup>
 <col width="2%"></col>
@@ -3937,12 +3937,12 @@ window.FlexDashboardComponents.push({
 <p><span class="math display">\[
 \sum_{i=1}^{j}13 \cdot Beneficio \cdot _k|\ddot{a}^{12}_{xi}
 \]</span></p>
-<p>No nosso trabalho usaremos o ultimo salário como Benefício.</p>
+<p>O benefício foi definido pelos colegas (Yuri e Raiane) como sendo a média das constribuições (no caso do salário) o valor será então 60% do salário + 2% para cada ano de contribuição alem do tempo definido de 15 anos para mulheres e 20 para homens.</p>
 <p><span class="math display">\[
-\sum_{i=1}^{j}13 \cdot Salario \cdot _k|\ddot{a}^{12}_{xi}
+\sum_{i=1}^{j}13 \cdot Salario \cdot \% ajuste \cdot _k|\ddot{a}^{12}_{xi}
 \]</span></p>
 <p>A despesa é calculada com base no que se espera gastar com cada beneficiário. Para programar essa tarefa vamos utilizar o valor de K calculado na tarefa anterior</p>
-<p>Esta tarefa então se resume em calcular as anuidades diferidas por k anos para cada indivíduo.</p>
+<p>Esta tarefa então se resume em calcular as anuidades diferidas por k anos para cada indivíduo e em seguida calcular o ajuste.</p>
 <p><strong>Sugestão:</strong> Sempre que terminar uma tarefa salve a tarefa nos seus dados para carregar na seguinte sem precisar rodar novamente, ou use o mesmo script.</p>
 </div>
 <div id="passo-a-passo" class="section level3">
@@ -4214,27 +4214,23 @@ Para o sexo feminino o resultado deve ser próximo a esse:
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<table>
+<table style="width:100%;">
 <colgroup>
 <col width="1%"></col>
-<col width="9%"></col>
-<col width="3%"></col>
-<col width="9%"></col>
+<col width="11%"></col>
+<col width="4%"></col>
+<col width="11%"></col>
+<col width="10%"></col>
 <col width="8%"></col>
-<col width="6%"></col>
-<col width="6%"></col>
 <col width="7%"></col>
-<col width="7%"></col>
-<col width="3%"></col>
-<col width="1%"></col>
-<col width="1%"></col>
+<col width="8%"></col>
+<col width="8%"></col>
 <col width="4%"></col>
-<col width="5%"></col>
 <col width="2%"></col>
-<col width="4%"></col>
-<col width="4%"></col>
-<col width="4%"></col>
+<col width="1%"></col>
 <col width="5%"></col>
+<col width="4%"></col>
+<col width="6%"></col>
 </colgroup>
 <thead>
 <tr class="header">
@@ -4251,12 +4247,8 @@ Para o sexo feminino o resultado deve ser próximo a esse:
 <th align="right">ktc</th>
 <th align="right">k</th>
 <th align="right">anuid_dif</th>
+<th align="right">pec_ben</th>
 <th align="right">PMBAC_Desp</th>
-<th align="right">taxa</th>
-<th align="right">contri</th>
-<th align="right">ax</th>
-<th align="right">axk</th>
-<th align="right">PMBAC_Rec</th>
 </tr>
 </thead>
 <tbody>
@@ -4265,155 +4257,126 @@ Para o sexo feminino o resultado deve ser próximo a esse:
 <td align="right">36</td>
 <td align="right">1088.00</td>
 <td align="right">15</td>
-<td align="left">FALSE</td>
+<td align="left">F</td>
 <td align="right">47</td>
 <td align="left">M</td>
 <td align="right">8</td>
 <td align="right">6</td>
-<td align="right">24</td>
-<td align="right">15</td>
-<td align="right">15</td>
-<td align="right">6.977940</td>
-<td align="right">98695.99</td>
-<td align="right">0.09</td>
-<td align="right">97.9200</td>
-<td align="right">17.49546</td>
-<td align="right">15.07019</td>
-<td align="right">3087.2687</td>
+<td align="right">26</td>
+<td align="right">0</td>
+<td align="right">26</td>
+<td align="right">3.052788</td>
+<td align="right">1.12</td>
+<td align="right">48360.07</td>
 </tr>
 <tr class="even">
 <td align="right">3</td>
 <td align="right">35</td>
 <td align="right">1088.00</td>
 <td align="right">14</td>
-<td align="left">FALSE</td>
+<td align="left">F</td>
 <td align="right">46</td>
 <td align="left">M</td>
 <td align="right">0</td>
 <td align="right">NA</td>
-<td align="right">25</td>
-<td align="right">16</td>
-<td align="right">16</td>
-<td align="right">6.635755</td>
-<td align="right">93856.12</td>
-<td align="right">0.09</td>
-<td align="right">97.9200</td>
-<td align="right">17.61504</td>
-<td align="right">15.07019</td>
-<td align="right">3239.4896</td>
+<td align="right">27</td>
+<td align="right">1</td>
+<td align="right">27</td>
+<td align="right">2.915959</td>
+<td align="right">1.12</td>
+<td align="right">46192.52</td>
 </tr>
 <tr class="odd">
 <td align="right">4</td>
 <td align="right">50</td>
 <td align="right">1046.06</td>
 <td align="right">29</td>
-<td align="left">FALSE</td>
+<td align="left">F</td>
 <td align="right">61</td>
 <td align="left">M</td>
 <td align="right">5</td>
 <td align="right">3</td>
-<td align="right">10</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">14.295726</td>
-<td align="right">194404.44</td>
-<td align="right">0.09</td>
-<td align="right">94.1454</td>
-<td align="right">15.27217</td>
-<td align="right">15.07019</td>
-<td align="right">247.2035</td>
+<td align="right">12</td>
+<td align="right">-14</td>
+<td align="right">12</td>
+<td align="right">5.895581</td>
+<td align="right">1.12</td>
+<td align="right">89793.43</td>
 </tr>
 <tr class="even">
 <td align="right">5</td>
 <td align="right">51</td>
 <td align="right">1088.00</td>
 <td align="right">31</td>
-<td align="left">FALSE</td>
+<td align="left">F</td>
 <td align="right">62</td>
 <td align="left">M</td>
 <td align="right">7</td>
 <td align="right">3</td>
-<td align="right">9</td>
-<td align="right">-1</td>
-<td align="right">0</td>
-<td align="right">15.070190</td>
-<td align="right">213152.77</td>
-<td align="right">0.09</td>
-<td align="right">97.9200</td>
-<td align="right">15.07019</td>
-<td align="right">15.07019</td>
-<td align="right">0.0000</td>
+<td align="right">11</td>
+<td align="right">-16</td>
+<td align="right">11</td>
+<td align="right">6.191481</td>
+<td align="right">1.14</td>
+<td align="right">99832.42</td>
 </tr>
 <tr class="odd">
 <td align="right">7</td>
 <td align="right">38</td>
 <td align="right">2389.61</td>
 <td align="right">13</td>
-<td align="left">FALSE</td>
+<td align="left">F</td>
 <td align="right">49</td>
 <td align="left">M</td>
 <td align="right">7</td>
 <td align="right">3</td>
-<td align="right">22</td>
-<td align="right">17</td>
-<td align="right">17</td>
-<td align="right">5.868885</td>
-<td align="right">182316.51</td>
-<td align="right">0.12</td>
-<td align="right">286.7532</td>
-<td align="right">17.24200</td>
-<td align="right">14.20103</td>
-<td align="right">11336.0962</td>
+<td align="right">24</td>
+<td align="right">2</td>
+<td align="right">24</td>
+<td align="right">3.346878</td>
+<td align="right">1.04</td>
+<td align="right">108129.37</td>
 </tr>
 <tr class="even">
 <td align="right">8</td>
 <td align="right">47</td>
 <td align="right">2942.99</td>
 <td align="right">23</td>
-<td align="left">FALSE</td>
+<td align="left">F</td>
 <td align="right">58</td>
 <td align="left">M</td>
 <td align="right">5</td>
 <td align="right">3</td>
-<td align="right">13</td>
-<td align="right">7</td>
-<td align="right">7</td>
-<td align="right">9.968723</td>
-<td align="right">381392.06</td>
-<td align="right">0.12</td>
-<td align="right">353.1588</td>
-<td align="right">15.84189</td>
-<td align="right">14.42743</td>
-<td align="right">6493.8802</td>
+<td align="right">15</td>
+<td align="right">-8</td>
+<td align="right">15</td>
+<td align="right">5.100419</td>
+<td align="right">1.06</td>
+<td align="right">206844.44</td>
 </tr>
 </tbody>
 </table>
-<p>Então a soma das Despesas com PMBAC para o sexo feminino será: ____________</p>
-<p>Para o sexo masculino o resultado deve ser próximo a esse:</p>
+Para o sexo masculino o resultado deve ser próximo a esse:
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<table>
+<table style="width:100%;">
 <colgroup>
 <col width="1%"></col>
-<col width="9%"></col>
-<col width="3%"></col>
-<col width="9%"></col>
+<col width="11%"></col>
+<col width="4%"></col>
+<col width="11%"></col>
+<col width="10%"></col>
 <col width="8%"></col>
-<col width="6%"></col>
-<col width="6%"></col>
 <col width="7%"></col>
-<col width="7%"></col>
-<col width="3%"></col>
-<col width="1%"></col>
-<col width="1%"></col>
+<col width="8%"></col>
+<col width="8%"></col>
 <col width="4%"></col>
-<col width="5%"></col>
 <col width="2%"></col>
+<col width="1%"></col>
+<col width="5%"></col>
 <col width="4%"></col>
-<col width="4%"></col>
-<col width="4%"></col>
-<col width="4%"></col>
+<col width="6%"></col>
 </colgroup>
 <thead>
 <tr class="header">
@@ -4430,12 +4393,8 @@ Para o sexo feminino o resultado deve ser próximo a esse:
 <th align="right">ktc</th>
 <th align="right">k</th>
 <th align="right">anuid_dif</th>
+<th align="right">pec_ben</th>
 <th align="right">PMBAC_Desp</th>
-<th align="right">taxa</th>
-<th align="right">contri</th>
-<th align="right">ax</th>
-<th align="right">axk</th>
-<th align="right">PMBAC_Rec</th>
 </tr>
 </thead>
 <tbody>
@@ -4450,15 +4409,11 @@ Para o sexo feminino o resultado deve ser próximo a esse:
 <td align="right">5</td>
 <td align="right">4</td>
 <td align="right">-8</td>
-<td align="right">-15</td>
+<td align="right">-30</td>
 <td align="right">0</td>
-<td align="right">9.240455</td>
-<td align="right">248476.86</td>
-<td align="right">0.12</td>
-<td align="right">248.2164</td>
-<td align="right">9.240455</td>
-<td align="right">9.240455</td>
-<td align="right">0.000</td>
+<td align="right">5.690489</td>
+<td align="right">1.20</td>
+<td align="right">183621.46</td>
 </tr>
 <tr class="even">
 <td align="right">6</td>
@@ -4471,15 +4426,11 @@ Para o sexo feminino o resultado deve ser próximo a esse:
 <td align="right">3</td>
 <td align="right">2</td>
 <td align="right">18</td>
-<td align="right">9</td>
-<td align="right">9</td>
-<td align="right">8.655944</td>
-<td align="right">404730.21</td>
-<td align="right">0.14</td>
-<td align="right">503.5422</td>
-<td align="right">15.841893</td>
-<td align="right">13.968537</td>
-<td align="right">12263.078</td>
+<td align="right">-6</td>
+<td align="right">18</td>
+<td align="right">3.812282</td>
+<td align="right">1.08</td>
+<td align="right">192512.95</td>
 </tr>
 <tr class="odd">
 <td align="right">9</td>
@@ -4492,15 +4443,11 @@ Para o sexo feminino o resultado deve ser próximo a esse:
 <td align="right">2</td>
 <td align="right">NA</td>
 <td align="right">25</td>
-<td align="right">16</td>
-<td align="right">16</td>
-<td align="right">6.047797</td>
-<td align="right">85540.04</td>
-<td align="right">0.09</td>
-<td align="right">97.9200</td>
-<td align="right">16.968657</td>
-<td align="right">13.968537</td>
-<td align="right">3819.032</td>
+<td align="right">1</td>
+<td align="right">25</td>
+<td align="right">2.743786</td>
+<td align="right">1.08</td>
+<td align="right">41912.75</td>
 </tr>
 <tr class="even">
 <td align="right">11</td>
@@ -4513,15 +4460,11 @@ Para o sexo feminino o resultado deve ser próximo a esse:
 <td align="right">5</td>
 <td align="right">NA</td>
 <td align="right">26</td>
-<td align="right">18</td>
-<td align="right">18</td>
-<td align="right">5.347643</td>
-<td align="right">241796.65</td>
-<td align="right">0.14</td>
-<td align="right">486.9368</td>
-<td align="right">17.107929</td>
-<td align="right">13.729977</td>
-<td align="right">21383.043</td>
+<td align="right">3</td>
+<td align="right">26</td>
+<td align="right">2.619739</td>
+<td align="right">1.06</td>
+<td align="right">125560.15</td>
 </tr>
 <tr class="odd">
 <td align="right">12</td>
@@ -4534,15 +4477,11 @@ Para o sexo feminino o resultado deve ser próximo a esse:
 <td align="right">5</td>
 <td align="right">NA</td>
 <td align="right">22</td>
-<td align="right">15</td>
-<td align="right">15</td>
-<td align="right">6.088198</td>
-<td align="right">86111.47</td>
-<td align="right">0.09</td>
-<td align="right">97.9200</td>
-<td align="right">16.519345</td>
-<td align="right">13.485605</td>
-<td align="right">3861.830</td>
+<td align="right">0</td>
+<td align="right">22</td>
+<td align="right">3.155109</td>
+<td align="right">1.04</td>
+<td align="right">46410.89</td>
 </tr>
 <tr class="even">
 <td align="right">16</td>
@@ -4555,19 +4494,17 @@ Para o sexo feminino o resultado deve ser próximo a esse:
 <td align="right">5</td>
 <td align="right">2</td>
 <td align="right">21</td>
-<td align="right">13</td>
-<td align="right">13</td>
-<td align="right">6.897907</td>
-<td align="right">97563.99</td>
-<td align="right">0.09</td>
-<td align="right">97.9200</td>
-<td align="right">16.358590</td>
-<td align="right">13.729977</td>
-<td align="right">3346.120</td>
+<td align="right">-2</td>
+<td align="right">21</td>
+<td align="right">3.306725</td>
+<td align="right">1.06</td>
+<td align="right">49576.54</td>
 </tr>
 </tbody>
 </table>
-<p>Então a soma das Despesas com PMBAC para o sexo feminino será: _____________</p>
+<p>Após calculadas as anuidades é necessário calcular o percentual do salário que corresponde ao benefício conforme as regras definidas e então calcular a despesa com PMBAC para cada indivíduo</p>
+<p>Então a soma das Despesas com PMBAC para o sexo feminino será: ____________</p>
+<p>Então a soma das Despesas com PMBAC para o sexo masculino será: _____________</p>
 <hr />
 </div>
 </div>
